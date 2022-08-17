@@ -5,12 +5,10 @@ import com.sparta.habittracker.entities.User;
 import com.sparta.habittracker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 //import javax.json.*;
 
 @RestController
@@ -28,7 +26,18 @@ public class UserController {
                 .body(repo.findAll());
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/{id}")
+    public ResponseEntity getUser(@PathVariable int id){
+        Optional user = repo.findById(id);
+        if (user.isPresent()){
+            return ResponseEntity.ok().header("response", "success")
+                    .body((User)user.get());
+        } else {
+            return ResponseEntity.badRequest().header("response","fail")
+                    .body("Could not find user by id " + id);
+        }
+
+    }
 
 
 
