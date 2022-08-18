@@ -1,8 +1,12 @@
 package com.sparta.habittracker.controllers;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.sparta.habittracker.HashingUtility;
 import com.sparta.habittracker.entities.User;
 import com.sparta.habittracker.repositories.UserRepository;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +57,26 @@ public class UserController {
         return ResponseEntity.ok().header("response", "success")
                 .body("User add successful");
     }
+
+    @PostMapping("/users/authorise")
+    ResponseEntity<String> authoriseUser(@RequestBody String req){
+         JSONParser parser = new JSONParser();
+        try {
+            JSONObject json = (JSONObject)parser.parse(req);
+            json.get("username");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(json.toString());
+
+
+//        repo.findUserByUsername(user.getUsername());
+
+
+        repo.findUserByEmail(user.getEmail());
+        repo.
+    }
+
 
 
 }
