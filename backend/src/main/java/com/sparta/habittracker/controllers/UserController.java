@@ -67,14 +67,14 @@ public class UserController {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(json.toString());
-
-
-//        repo.findUserByUsername(user.getUsername());
-
-
-        repo.findUserByEmail(user.getEmail());
-        repo.
+//        System.out.println(json.toString());
+//
+//
+////        repo.findUserByUsername(user.getUsername());
+//
+//
+//        repo.findUserByEmail(user.getEmail());
+//        repo.
     }
 
 

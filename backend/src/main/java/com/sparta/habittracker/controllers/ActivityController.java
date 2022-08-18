@@ -2,8 +2,10 @@ package com.sparta.habittracker.controllers;
 
 import com.sparta.habittracker.entities.Activity;
 import com.sparta.habittracker.repositories.ActivityRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -14,7 +16,7 @@ public class ActivityController {
     @Autowired
     ActivityRepository activityRepository;
 
-    @GetMapping("/activities/")
+    @GetMapping("/activities")
     public List<Activity> getAllActivities(){
         return activityRepository.findAll();
     }
@@ -24,15 +26,18 @@ public class ActivityController {
         return activityRepository.findById(id).get();
     }
     @PostMapping ("/activities/new")
-    public void makeNewActivity(@RequestBody Activity activity){
+    public ResponseEntity makeNewActivity(@RequestBody Activity activity){
         if (activity == null || activity.getId()==null){
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+//            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().header("message", "").body("Check activity or id, cannot be null");
         }
         if (activityRepository.findById(activity.getId()) != null){
-            throw new HttpClientErrorException(HttpStatus.CONFLICT);
+//            throw new HttpClientErrorException(HttpStatus.CONFLICT);
+            return ResponseEntity.status(409).header("message", "The id already exists").body("fail");
         }
         else activityRepository.save(activity);
-        return;
+
+        return ResponseEntity.status(201).header("message", "successfully added new activity").body("success");
     }
     @DeleteMapping("/activities/delete/{id}")
     public void deleteActivityById(@PathVariable String id){
