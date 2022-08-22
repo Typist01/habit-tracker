@@ -1,0 +1,48 @@
+/** @format */
+
+body {
+  background-color: blueviolet;
+  margin: 0;
+}
+
+div {
+  width: 400px;
+  height: 400px;
+  background-color: whitesmoke;
+  border-radius: 15px;
+  /* can specify up to four numbers
+  1. specify for all sides
+  2. specify top bottom, and right left 
+  3. top, right left with equal padding, bottom
+  4. top, right, bottom, left*/
+  padding: 50px 30px;
+  margin: 50px 30px 20px 10px;
+}
+h1 {
+  margin: 0;
+  font-size: 10px;
+  /* text-align: center; */
+}
+h3 {
+  font-size: 10px;
+}
+p {
+  font-size: 10px;
+  font-family: "Anek Telugu", sans-serif;
+  font-weight: 300;
+}
+
+.more-info-button {
+  border: none;
+  /* outline: none; */
+  background-color: magenta;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+
+.more-info-button:hover {
+  background-color: rgb(230, 3, 230);
+  cursor: pointer;
+  outline: black solid 0.5px;
+}

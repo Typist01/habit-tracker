@@ -1,0 +1,18 @@
+/** @format */
+
+#text-parahgraph {
+  background-color: aqua;
+  color: blue;
+}
+
+.main {
+  font-size: 50px;
+}
+.heading {
+  color: white;
+  background-color: magenta;
+}
+
+.hidden {
+  display: none;
+}
