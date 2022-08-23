@@ -1,13 +1,35 @@
 /** @format */
 
+.body-red {
+  background-color: red;
+}
 body {
   background-color: blueviolet;
   margin: 0;
 }
 
 div {
-  width: 400px;
-  height: 400px;
+}
+.body-container {
+  display: flex;
+  justify-content: center;
+}
+.container {
+  /* margin: auto; */
+  /* justify-content: ; */
+  /* align-items: center;
+  justify-content: center; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+
+  /* justify-content: space-around; */
+}
+.card {
+  /* display: inline-block; */
+  width: 220px;
+  height: 300px;
   background-color: whitesmoke;
   border-radius: 15px;
   /* can specify up to four numbers
@@ -16,18 +38,28 @@ div {
   3. top, right left with equal padding, bottom
   4. top, right, bottom, left*/
   padding: 50px 30px;
-  margin: 50px 30px 20px 10px;
+  margin: 20px 70px;
+
+  /* margin: 50px 30px 20px 10px; */
+  /* margin-left: 50px; */
+  /* margin: 0; */
+  /* display: inline-block; */
 }
+
+.inline-block {
+  display: inline-block;
+}
+
 h1 {
   margin: 0;
-  font-size: 10px;
+  font-size: 18px;
   /* text-align: center; */
 }
 h3 {
-  font-size: 10px;
+  font-size: 16px;
 }
 p {
-  font-size: 10px;
+  font-size: 14px;
   font-family: "Anek Telugu", sans-serif;
   font-weight: 300;
 }

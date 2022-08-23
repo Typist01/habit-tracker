@@ -1,0 +1,22 @@
+/** @format */
+
+body {
+  margin: 3% 7%;
+  background-color: blanchedalmond;
+}
+.container {
+  height: 600px;
+  background-color: cadetblue;
+  position: relative;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  position: absolute;
+  bottom: 50px;
+  left: 10%;
+  /* left: 5px; */
+  /* bottom: 5px; */
+}
