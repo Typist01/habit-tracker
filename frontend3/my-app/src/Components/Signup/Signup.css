@@ -1,1 +1,42 @@
 /** @format */
+.signup-container label {
+  display: block;
+}
+.signup-container input,
+.signup-container label {
+  width: 100%;
+}
+.signup-container input {
+  height: 30px;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #002550;
+  width: 350px;
+  margin: auto;
+  margin-top: 15%;
+  /* padding: 0 px; */
+  padding-bottom: 30px;
+}
+
+#signup-submit {
+  background-color: white;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  width: 40%;
+  margin: auto;
+}
+.signup-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+#signup-submit:hover {
+  background-color: rgb(240, 240, 240);
+  cursor: pointer;
+}

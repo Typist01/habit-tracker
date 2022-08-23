@@ -26,36 +26,47 @@ export default function Signup() {
     console.log(passwordEntered);
     console.log(isValid);
   }, [passwordEntered]);
+
+  useEffect(() => {
+    document.body.style = "background:black; color:white;";
+  }, []);
+
   return (
-    <div>
-      <h1> Hi from signup </h1>
+    <div class="signup-container">
+      <div>
+        <h1> Hi from signup </h1>
+      </div>
       <form>
-        <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <label>
-          Password:
-          <input
-            value={passwordEntered}
-            type="password"
-            name="password"
-            onChange={passwordChangeHandler}
-          />
-        </label>
-        <label style={isValid ? strongSecurityStyle : weakSecurityStyle}>
-          Security
-        </label>
-        <input type="submit" value="Submit" />
+        <div>
+          <label>
+            Name:
+            <input type="text" name="name" />
+          </label>
+        </div>
+        <div>
+          <label>
+            Email:
+            <input type="text" name="email" />
+          </label>
+        </div>
+        <div>
+          <label>
+            Password:
+            <input
+              value={passwordEntered}
+              type="password"
+              name="password"
+              onChange={passwordChangeHandler}
+            />
+          </label>
+          <p style={isValid ? strongSecurityStyle : weakSecurityStyle}>
+            Security
+          </p>
+        </div>
+        <div class="signup-button-wrapper">
+          <input id="signup-submit" type="submit" value="Sign up" />
+        </div>
       </form>
     </div>
   );
 }
-
-//   const myJsObject = {
-//     num: 5,
-//     text: "hello",
-//     myFunction: () => {
-//       console.log("hello world");
-//     },
-//   };

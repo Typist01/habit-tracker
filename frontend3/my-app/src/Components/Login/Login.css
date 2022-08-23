@@ -1,8 +1,75 @@
 /** @format */
 .hidden {
   display: none;
-  
 }
+.login-body {
+  background-color: rgb(0, 37, 80);
+}
+
+.login-content-box {
+  background-color: rgb(0, 37, 80);
+  position: relative;
+  min-width: 300px;
+  left: 25%;
+  width: 50%;
+  height: 500px;
+  border-radius: 2%;
+  margin-top: 10%;
+  padding: 2%;
+}
+.login-content-box h1,
+.login-content-box h2 {
+  color: white;
+}
+
+.login-content-box input {
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  color: rgb(240, 240, 240);
+  background-color: rgb(0, 66, 141);
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  padding: 3px 10px;
+}
+.login-content-box .magestic-mode {
+  background-color: rgb(255, 137, 186);
+}
+
+.login-content-box input:hover {
+  background-color: rgb(0, 53, 114);
+}
+.login-content-box input:focus {
+  background-color: rgb(0, 66, 141);
+}
+
+.login-content-box button {
+  position: relative;
+  width: 30%;
+  height: 10%;
+  left: 35%;
+  top: 10%;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background-color: rgb(0, 66, 141);
+  color: white;
+}
+
+.login-label {
+  color: whitesmoke;
+}
+.login-wrapper {
+  width: 80%;
+  height: 80%;
+  margin: auto;
+}
+
 .magestic-mode {
   background-color: magenta;
+}
+
+.magestic-mode-highlight {
+  background-color: pink;
 }
