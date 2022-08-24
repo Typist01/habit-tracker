@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_habits")
 public class UserHabit {
+
     @Id
     @Column(name = "user_habit_id", nullable = false)
     private Integer id;

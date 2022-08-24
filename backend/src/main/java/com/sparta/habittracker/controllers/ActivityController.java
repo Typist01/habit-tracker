@@ -1,5 +1,6 @@
 package com.sparta.habittracker.controllers;
 
+import com.sparta.habittracker.Authentication;
 import com.sparta.habittracker.entities.Activity;
 import com.sparta.habittracker.repositories.ActivityRepository;
 import org.apache.coyote.Response;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ActivityController {
@@ -17,35 +19,53 @@ public class ActivityController {
     ActivityRepository activityRepository;
 
     @GetMapping("/activities")
-    public List<Activity> getAllActivities(){
-        return activityRepository.findAll();
+    public ResponseEntity getAllActivities( @RequestParam("key") Optional<String> apiKey){
+        if (apiKey.isPresent() && Authentication.successful(apiKey.get())){
+            return ResponseEntity.ok().body(activityRepository.findAll());
+        } else{
+            return ResponseEntity.badRequest().body("Invalid key or not found");
+        }
     }
 
     @GetMapping("/activities/{id}")
-    public Activity getActivityById(@PathVariable String id){
-        return activityRepository.findById(id).get();
+    public ResponseEntity getActivityById(@RequestParam("key") Optional<String> apiKey, @PathVariable String id){
+        if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
+            return ResponseEntity.ok().body(activityRepository.findById(id).get());
+        } else{
+            return ResponseEntity.badRequest().body("invalid api key or not found");
+        }
     }
     @PostMapping ("/activities/new")
-    public ResponseEntity makeNewActivity(@RequestBody Activity activity){
-        if (activity == null || activity.getId()==null){
+    public ResponseEntity makeNewActivity( @RequestParam("key") Optional<String> apiKey, @RequestBody Activity activity){
+        if (apiKey.isPresent() && Authentication.successful(apiKey.get())){
+            if (activity == null || activity.getId()==null){
 //            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
-            return ResponseEntity.badRequest().header("message", "").body("Check activity or id, cannot be null");
-        }
-        if (activityRepository.findById(activity.getId()) != null){
+                return ResponseEntity.badRequest().header("message", "").body("Check activity or id, cannot be null");
+            }
+            if (activityRepository.findById(activity.getId()).isPresent()){
 //            throw new HttpClientErrorException(HttpStatus.CONFLICT);
-            return ResponseEntity.status(409).header("message", "The id already exists").body("fail");
-        }
-        else activityRepository.save(activity);
+                return ResponseEntity.status(409).header("message", "The id already exists").body("fail");
+            }
+            else activityRepository.save(activity);
 
-        return ResponseEntity.status(201).header("message", "successfully added new activity").body("success");
+            return ResponseEntity.status(201).header("message", "successfully added new activity").body("success");
+        } else{
+            return ResponseEntity.badRequest().body("api key invalid or not found");
+        }
+
     }
     @DeleteMapping("/activities/delete/{id}")
-    public void deleteActivityById(@PathVariable String id){
-        Activity activity = activityRepository.findById(id).get();
-        if (activity == null ){
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    public ResponseEntity deleteActivityById(@RequestParam("key") Optional<String>apiKey, @PathVariable String id){
+        if (apiKey.isPresent() && Authentication.successful(apiKey.get())){
+            Activity activity = activityRepository.findById(id).get();
+            if (activity == null ){
+//                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+                return ResponseEntity.badRequest().body("activity not found");
+            }
+            activityRepository.delete(activity);
+            return ResponseEntity.ok().body("Successfully deleted");
+        } else{
+            return ResponseEntity.ok().body("Api key invalid or not found");
         }
-        activityRepository.delete(activity);
-        return;
     }
 }
