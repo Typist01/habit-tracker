@@ -20,5 +20,6 @@ public class ActivityUnit {
         this.id = id;
     }
 
+
     //TODO [JPA Buddy] generate columns from DB
 }

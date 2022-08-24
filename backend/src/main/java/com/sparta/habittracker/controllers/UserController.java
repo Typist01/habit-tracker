@@ -21,14 +21,27 @@ public class UserController {
     @Autowired
     UserRepository repo;
 
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers(){
-        List<User> users = repo.findAll();
-//        JsonObj
-        //        users.stream().filter(e -> new JSONPObject());
-        return ResponseEntity.ok().header("response", "success")
-                .body(repo.findAll());
+//    @GetMapping("/users")
+//    public ResponseEntity<List<User>> getUsers(){
+//        List<User> users = repo.findAll();
+////        JsonObj
+//        //        users.stream().filter(e -> new JSONPObject());
+//        return ResponseEntity.ok().header("response", "success")
+//                .body(repo.findAll());
+//    }
+    @RequestMapping(value="/users", method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity getItem(@RequestParam("key") Optional<Integer> apiKey) {
+        if( apiKey.isPresent() && apiKey.get() == 1234) {
+            List<User> users = repo.findAll();
+            return ResponseEntity.ok().header("response", "success")
+                    .body(repo.findAll());
+        }
+            else{
+                return ResponseEntity.badRequest().body("api key invalid or not found");
+            }
     }
+
+
 
     @GetMapping("/user/{id}")
     public ResponseEntity getUser(@PathVariable int id){
@@ -43,7 +56,7 @@ public class UserController {
 
     }
 
-
+//"?id=1902834719&key=10983475aslkfjqi"
 
     @PostMapping("/users")
     ResponseEntity<String> addUser(@RequestBody User user){
@@ -58,24 +71,24 @@ public class UserController {
                 .body("User add successful");
     }
 
-    @PostMapping("/users/authorise")
-    ResponseEntity<String> authoriseUser(@RequestBody String req){
-         JSONParser parser = new JSONParser();
-        try {
-            JSONObject json = (JSONObject)parser.parse(req);
-            json.get("username");
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-//        System.out.println(json.toString());
-//
-//
-////        repo.findUserByUsername(user.getUsername());
-//
-//
-//        repo.findUserByEmail(user.getEmail());
-//        repo.
-    }
+//    @PostMapping("/users/authorise")
+//    ResponseEntity<String> authoriseUser(@RequestBody String req){
+//         JSONParser parser = new JSONParser();
+//        try {
+//            JSONObject json = (JSONObject)parser.parse(req);
+//            json.get("username");
+//        } catch (ParseException e) {
+//            throw new RuntimeException(e);
+//        }
+////        System.out.println(json.toString());
+////
+////
+//////        repo.findUserByUsername(user.getUsername());
+////
+////
+////        repo.findUserByEmail(user.getEmail());
+////        repo.
+//    }
 
 
 
