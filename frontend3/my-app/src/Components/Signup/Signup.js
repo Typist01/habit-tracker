@@ -16,6 +16,8 @@ export default function Signup() {
 
   const [isValid, setValid] = useState(false);
 
+  
+
   function passwordChangeHandler(event) {
     const value = event.target.value;
     setPasswordEntered(value);
