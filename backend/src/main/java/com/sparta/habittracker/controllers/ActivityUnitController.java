@@ -13,15 +13,16 @@ public class ActivityUnitController {
     ActivityUnitRepository repo;
 
 
+
 //    @GetMapping("/unit")
 //
 //    @PostMapping("/unit")
 //    public ResponseEntity addUnit(@RequestParam("key") String apiKey, @RequestBody ActivityUnit unit){
-//        if (repo.existsById(unit)){
+//        if (repo.existsById(unit.getId())){
 //
 //        }
-
-
+//
+//
 //    }
 
 

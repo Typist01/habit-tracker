@@ -99,27 +99,27 @@ public class ActivityDatumController {
     }
     @PatchMapping("activityData/update")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity updateActivityData(@RequestParam("key") Optional<String> apiKey, @RequestBody ActivityDatum data) {
+    public ResponseEntity updateActivityData(@RequestParam("key") Optional<String> apiKey, @RequestBody String data) {
         if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
-        if (data == null || data.getId() == 0) {
+        if (data == null) {
             return ResponseEntity.badRequest()
                     .header("message", "")
-                    .body("Check activityData or id, neither can be null");
+                    .body("Empty String received");
         }
-        ActivityDatum databaseVersion = dataRepo.findById(data.getId()).get();
-        if (databaseVersion == null) {
-            return ResponseEntity.badRequest()
-                    .header("message", "")
-                    .body("Requested id not in database");
+        try{
+            ActivityDatum updatedRecord = patchData(data);
+            dataRepo.save(updatedRecord);
+            return ResponseEntity.ok().body("successfully updated");
+        } catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body("Exception thrown when parsing data");
         }
-        dataRepo.save(data);
-        return ResponseEntity.ok().body("successfully updated");
     } else{
             return ResponseEntity.status(403).body("api key invalid or not found");
         }
     }
 
-    private void patchData(String req){
+    private ActivityDatum patchData(String req) throws Exception{
         JSONParser parser = new JSONParser();
         try{
             JSONObject json = (JSONObject) parser.parse(req);
@@ -139,11 +139,15 @@ public class ActivityDatumController {
                 if(json.get("feeling_comment") != null){
                     oldData.setFeelingComment(String.valueOf(json.get("feeling_comment")));
                 }
+                return oldData;
             }
 
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new Exception("Exception thrown when parsing");
+        } catch (Exception e){
+            throw new Exception("issue with patching data");
         }
+        throw new Exception("Exception thrown when parsing");
 
     }
 

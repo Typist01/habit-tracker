@@ -8,9 +8,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "activities")
 public class Activity {
+
+    public Activity(String id){
+        this.id=id;
+    }
     @Id
     @Column(name = "activity_name", nullable = false)
     private String id;
+
+    public Activity() {
+
+    }
 
     public String getId() {
         return id;

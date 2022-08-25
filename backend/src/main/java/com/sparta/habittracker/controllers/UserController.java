@@ -4,7 +4,9 @@ import com.sparta.habittracker.Authentication;
 import com.sparta.habittracker.HashingUtility;
 import com.sparta.habittracker.entities.User;
 import com.sparta.habittracker.repositories.UserRepository;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,8 @@ public class UserController {
 //        return ResponseEntity.ok().header("response", "success")
 //                .body(repo.findAll());
 //    }
+
+//    returns all users
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public @ResponseBody ResponseEntity getItem(@RequestParam("key") Optional<String> apiKey) {
         if( apiKey.isPresent() && Authentication.successful(apiKey.get())) {
@@ -38,6 +42,7 @@ public class UserController {
         }
     }
 
+//    returns user with id={id} in the url
     @GetMapping("/user")
     public ResponseEntity getUser(@RequestParam("key") Optional<String> apiKey,
                                   @RequestParam("id") int id){
@@ -77,24 +82,32 @@ public class UserController {
         }
     }
 
-//    @PostMapping("/users/authorise")
-//    ResponseEntity<String> authoriseUser(@RequestBody String req){
-//         JSONParser parser = new JSONParser();
-//        try {
-//            JSONObject json = (JSONObject)parser.parse(req);
-//            json.get("username");
+    @GetMapping("/users/authorise")
+    ResponseEntity<String> authoriseUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+        if (repo.existsByUsername(username)) {
+            User user = repo.findUserByUsername(username);
+            if (HashingUtility.checkPassword(password, user.getPasswordToken())) {
+                return ResponseEntity.accepted().body("success");
+            } else {
+                return ResponseEntity.status(403).body("fail");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("user does not exist");
+
+        }
+    }
+//            json.put("")
+//            User user = new User(null, email, username, password);
 //        } catch (ParseException e) {
-//            throw new RuntimeException(e);
 //        }
-////        System.out.println(json.toString());
-////
-////
-//////        repo.findUserByUsername(user.getUsername());
-////
-////
-////        repo.findUserByEmail(user.getEmail());
-////        repo.
-//    }
+//        System.out.println(json.toString());
+//
+//
+////        repo.findUserByUsername(user.getUsername());
+//
+//
+//        repo.findUserByEmail(user.getEmail());
+//        repo.
 
 
 

@@ -6,6 +6,15 @@ import javax.persistence.*;
 @Table(name = "user_habits")
 public class UserHabit {
 
+    public UserHabit(Integer id, String name, User user, Activity activityName, ActivityUnit unitType) {
+        this.id = id;
+        this.name = name;
+        this.user = user;
+        this.activityName = activityName;
+        this.unitType = unitType;
+    }
+
+
     @Id
     @Column(name = "user_habit_id", nullable = false)
     private Integer id;
@@ -24,6 +33,11 @@ public class UserHabit {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "unit_type", nullable = false)
     private ActivityUnit unitType;
+
+    public UserHabit() {
+
+    }
+
 
     public Integer getId() {
         return id;

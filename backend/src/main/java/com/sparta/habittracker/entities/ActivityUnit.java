@@ -12,6 +12,14 @@ public class ActivityUnit {
     @Column(name = "unit_type", nullable = false)
     private String id;
 
+    public ActivityUnit(String id) {
+        this.id = id;
+    }
+
+    public ActivityUnit() {
+
+    }
+
     public String getId() {
         return id;
     }

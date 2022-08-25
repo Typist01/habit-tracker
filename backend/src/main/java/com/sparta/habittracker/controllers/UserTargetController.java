@@ -4,11 +4,16 @@ import com.sparta.habittracker.Authentication;
 import com.sparta.habittracker.entities.ActivityDatum;
 import com.sparta.habittracker.entities.UserTarget;
 import com.sparta.habittracker.repositories.UserTargetRepository;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @RestController
@@ -83,5 +88,60 @@ public class UserTargetController {
         }
     }
 
+    @PatchMapping("targets/update")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity updateActivityData(@RequestParam("key") Optional<String> apiKey, @RequestBody String data) {
+        if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
+            if (data == null) {
+                return ResponseEntity.badRequest()
+                        .header("message", "")
+                        .body("Empty String received");
+            }
+            try{
+                UserTarget updatedRecord = patchData(data);
+                repo.save(updatedRecord);
+                return ResponseEntity.ok().body("successfully updated");
+            } catch(Exception e){
+                e.printStackTrace();
+                return ResponseEntity.unprocessableEntity().body("Exception thrown when parsing data");
+            }
+        } else{
+            return ResponseEntity.status(403).body("api key invalid or not found");
+        }
+    }
+
+    private UserTarget patchData(String req) throws Exception{
+        JSONParser parser = new JSONParser();
+        try{
+            JSONObject json = (JSONObject) parser.parse(req);
+            int id = (Integer.parseInt(String.valueOf(json.get("id"))));
+            if (repo.existsById(id)){
+                UserTarget oldData = repo.findById(id)
+                        .orElseThrow( ()-> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+                if(json.get("target_name") != null){
+                    oldData.setTargetName(String.valueOf(json.get("target_name")));
+                }
+                if(json.get("target_goal") != null){
+                    oldData.setTargetGoal(Integer.parseInt(String.valueOf(json.get("target_goal"))));
+                }
+                if(json.get("target_deadline") != null){
+                    oldData.setTargetDeadline(Instant.parse(String.valueOf(json.get("target_deadline"))));
+                }
+                if(json.get("target_repeats") != null){
+                    oldData.setTargetRepeats(Boolean.valueOf(String.valueOf(json.get("target_repeats"))));
+                }
+                if(json.get("repeat_interval_in_days") != null){
+                    oldData.setRepeatIntervalInDays(Integer.valueOf(String.valueOf(json.get("repeat_interval_in_days"))));
+                }
+                return oldData;
+            }
+
+        } catch (ParseException e) {
+            throw new Exception("Exception thrown when parsing");
+        } catch (Exception e){
+            throw new Exception("issue with patching data");
+        }
+        throw new Exception("Exception thrown when parsing");
+    }
 
 }
