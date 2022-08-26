@@ -1,0 +1,15 @@
+.display-habit-container-box {
+    background-color: rgb(0, 37, 80);
+    position: relative;
+    min-width: 300px;
+    left: 10%;
+    width: 80%;
+    height: 100px;
+    border-radius: 2%;
+    margin-top: 10%;
+    padding: 2%;
+  }
+
+  .display-habit-container-box habit{
+
+  }

@@ -1,33 +1,35 @@
 /** @format */
 
-import { createContext, useContext, useState } from "react";
+// /** @format */
 
-import { signUp } from "./authentication.js";
+// import { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext({
-  user: "",
-  onLogin: (username, password) => {},
-  onLogout: () => {},
-});
+// import { signUp } from "./authentication.js";
 
-const AuthContextProvider = () => {
-  const [user, setUser] = useState("");
+// const AuthContext = createContext({
+//   user: "",
+//   onLogin: (username, password) => {},
+//   onLogout: () => {},
+// });
 
-  //   function loginHandler(username, password) {
+// const AuthContextProvider = () => {
+//   const [user, setUser] = useState("");
 
-  //   }
+//   //   function loginHandler(username, password) {
 
-  function signUp(email, username, password) {
-    if (signUp(email, username, password) == "success") {
-      console.log("signed up successfully");
-      return "success";
-    } else {
-      console.log("could not sign up");
-      return "fail";
-    }
-  }
+//   //   }
 
-  return (
-    <AuthContext.Provider value={{onSignUp:signUp}}></AuthContext.Provider>
-  );
-};
+//   function signUp(email, username, password) {
+//     if (signUp(email, username, password) == "success") {
+//       console.log("signed up successfully");
+//       return "success";
+//     } else {
+//       console.log("could not sign up");
+//       return "fail";
+//     }
+//   }
+
+//   return (
+//     <AuthContext.Provider value={{onSignUp:signUp}}></AuthContext.Provider>
+//   );
+// };

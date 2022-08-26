@@ -10,6 +10,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 //import javax.json.*;
@@ -83,17 +84,22 @@ public class UserController {
     }
 
     @GetMapping("/users/authorise")
-    ResponseEntity<String> authoriseUser(@RequestParam("username") String username, @RequestParam("password") String password) {
-        if (repo.existsByUsername(username)) {
-            User user = repo.findUserByUsername(username);
-            if (HashingUtility.checkPassword(password, user.getPasswordToken())) {
-                return ResponseEntity.accepted().body("success");
+    ResponseEntity<String> authoriseUser(@RequestParam("key") Optional<String> apiKey, @RequestParam("username") String username, @RequestParam("password") String password) {
+        if(apiKey.isPresent() && Authentication.successful(apiKey.get())) {
+
+            if (repo.existsByUsername(username)) {
+                User user = repo.findUserByUsername(username);
+                if (HashingUtility.checkPassword(password, user.getPasswordToken())) {
+                    return ResponseEntity.accepted().body("success");
+                } else {
+                    return ResponseEntity.status(403).body("fail");
+                }
             } else {
-                return ResponseEntity.status(403).body("fail");
+                return ResponseEntity.badRequest().body("user does not exist");
+
             }
         } else {
-            return ResponseEntity.badRequest().body("user does not exist");
-
+            return ResponseEntity.badRequest().body("api key invalid or not present");
         }
     }
 //            json.put("")
