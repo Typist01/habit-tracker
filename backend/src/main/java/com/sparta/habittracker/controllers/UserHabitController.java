@@ -1,10 +1,7 @@
 package com.sparta.habittracker.controllers;
 
 import com.sparta.habittracker.Authentication;
-import com.sparta.habittracker.entities.Activity;
-import com.sparta.habittracker.entities.ActivityUnit;
-import com.sparta.habittracker.entities.UserHabit;
-import com.sparta.habittracker.entities.UserTarget;
+import com.sparta.habittracker.entities.*;
 import com.sparta.habittracker.repositories.ActivityRepository;
 import com.sparta.habittracker.repositories.ActivityUnitRepository;
 import com.sparta.habittracker.repositories.UserHabitRepository;
@@ -21,6 +18,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import javax.swing.text.html.Option;
 import java.math.BigInteger;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -41,6 +39,19 @@ public class UserHabitController {
         if (apiKey.isPresent() && Authentication.successful(apiKey.get())){
             return ResponseEntity.ok(repo.findById(id)
                     .orElseThrow(()-> new HttpClientErrorException(HttpStatus.BAD_REQUEST)));
+        } else{
+            return ResponseEntity.badRequest().body("api key invalid or not found");
+
+        }
+    }
+    @GetMapping("/habits/user")
+    public ResponseEntity getHabitsByUser(@RequestParam("key") Optional<String> apiKey, @RequestParam("username") String username){
+        if (apiKey.isPresent() && Authentication.successful(apiKey.get())){
+            if (!userRepo.existsByUsername(username)){
+                return ResponseEntity.badRequest().body("could not find user");
+            }
+            User user = userRepo.findUserByUsername(username);
+            return ResponseEntity.ok(repo.findByUser(user));
         } else{
             return ResponseEntity.badRequest().body("api key invalid or not found");
 
@@ -69,8 +80,9 @@ public class UserHabitController {
 
     @PostMapping("/habits/new")
     public ResponseEntity<String> makeNewActivity(
-            @RequestParam("key") Optional<String> apiKey, @RequestBody String request) {
+            @RequestParam("key") Optional<String> apiKey, @RequestParam(name="username", required=false) String username, @RequestBody String request) {
         JSONParser parser = new JSONParser();
+        System.out.println( "post request from user: " + username);
 //        System.out.println("api key: " + apiKey.get());
 //        System.out.println(apiKey.isPresent() && Authentication.successful(apiKey.get()));
         if (apiKey.isPresent() && Authentication.successful(apiKey.get())) {
@@ -80,11 +92,28 @@ public class UserHabitController {
                 if (json.get("id") == null){
                     json.put("id",(System.nanoTime() + String.valueOf(Math.abs((Integer.parseInt((String.valueOf(json.get("user")))))))).hashCode());
                 }
-                Integer userId = Integer.parseInt(String.valueOf(json.get("user")));
+                System.out.println("started assigning json data to variables");
+                Integer userId;
+                if (username != null){
+                    userId = userRepo.findUserByUsername(username).getId();
+                } else{
+                    userId = Integer.parseInt(String.valueOf(json.get("user")));
+                }
                 String activityName = String.valueOf(json.get("activityName"));
                 String unitType = String.valueOf(json.get("unitType"));
                 Integer habitId = Integer.parseInt(String.valueOf(json.get("id"))) ;
-                String name = String.valueOf(json.get("name"));
+                String name;
+                if(json.get("name") != null){
+                     name = String.valueOf(json.get("name"));
+                } else {  name = activityName;};
+                Integer defaultIncrement;
+                if(json.get("defaultIncrement") != null){
+                    defaultIncrement = Integer.parseInt(String.valueOf(json.get("defaultIncrement")));
+                } else{
+                    defaultIncrement = null;
+                }
+
+                System.out.println("default increment: " + defaultIncrement);
 
                 if (repo.findById(habitId).isPresent()) {
                     return ResponseEntity.status(409)
@@ -96,7 +125,7 @@ public class UserHabitController {
                     UserHabit habit = new UserHabit(habitId, name,
                             userRepo.findById(userId).get(),
                             activityRepo.findById(activityName).get(),
-                            unitRepo.findById(unitType).get()
+                            unitRepo.findById(unitType).get(), defaultIncrement
                     );
                     repo.save(habit);
                     return ResponseEntity.ok().body("habit saved successfully");

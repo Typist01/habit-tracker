@@ -12,6 +12,11 @@ export default function Dashboard() {
     <React.Fragment>
       <div class="magestic-mode">
         {/* <h1> hi from dashboard </h1> */}
+        {/* todo: get all habits from a user that is logged in */}
+        {/* for each habit : usershabits {habitdisplaybox(habit name, constant amount) } */}
+        <div id="habitDisplayBox">
+          <HabitDisplayBox />
+        </div>
         <div id="habitDisplayBox">
           <HabitDisplayBox />
         </div>

@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS habit;
 CREATE DATABASE habit;
 use habit;
 CREATE TABLE users
-(user_id int NOT NULL,
+(user_id int NOT NULL AUTO_INCREMENT,
 email varchar(255),
 username varchar(255) NOT NULL,
 password_token varchar(255) NOT NULL,
@@ -20,11 +20,12 @@ PRIMARY KEY (unit_type)
 );
 
 CREATE TABLE user_habits(
-user_habit_id int NOT NULL,
+user_habit_id int NOT NULL AUTO_INCREMENT,
 `name` varchar(255),
 user_id int NOT NULL,
 activity_name varchar(255) NOT NULL,
 unit_type varchar(255) NOT NULL,
+default_increment INT,
 PRIMARY KEY (user_habit_id),
 FOREIGN KEY(user_id) REFERENCES users(user_id),
 FOREIGN KEY (activity_name) REFERENCES activities(activity_name),
@@ -32,7 +33,7 @@ FOREIGN KEY (unit_type) REFERENCES activity_units(unit_type)
 );
 
 CREATE TABLE user_targets(
-target_id int NOT NULL,
+target_id int NOT NULL AUTO_INCREMENT,
 user_habit_id int NOT NULL,
 target_name varchar(255) NOT NULL,
 target_goal int NOT NULL,
@@ -45,7 +46,7 @@ FOREIGN KEY(user_habit_id) REFERENCES user_habits(user_habit_id)
 
 
 CREATE TABLE activity_data(
-activity_data_id int NOT NULL,
+activity_data_id int NOT NULL AUTO_INCREMENT,
 habit_id INT NOT NULL ,
 date_recorded DATETIME,
 amount_done int NOT NULL,
