@@ -6,7 +6,7 @@
   --button-text-size: 8px;
 }
 
-button:hover{
+button:hover {
   cursor: pointer;
 }
 
@@ -55,10 +55,36 @@ button:hover{
   align-content: center;
   flex-direction: column;
 }
+.habit-name-box {
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.habit-name-box h3 {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 7px;
+}
+.habit-name-box p {
+  margin: 0;
+  padding: 0;
+}
 
 .textbox h1 {
   text-align: center;
+}
+.textbox h3 {
+  padding: 0;
+  margin: 0;
   margin: auto;
+}
+.not-visible {
+  visibility: hidden;
 }
 
 .display-habit-container-box .generic-add {
@@ -85,6 +111,55 @@ button:hover{
   background-color: rgb(0, 66, 141);
   font-size: var(--button-text-size);
 }
+
+.breathe-in {
+  animation: breathe-in 0.4s;
+  -webkit-animation-fill-mode: forwards; /* Chrome 16+, Safari 4+ */
+  -moz-animation-fill-mode: forwards; /* FF 5+ */
+  -o-animation-fill-mode: forwards; /* Not implemented yet */
+  -ms-animation-fill-mode: forwards; /* IE 10+ */
+  animation-fill-mode: forwards;
+}
+.breathe-out {
+  animation: breathe-out 0.1s;
+}
+
+.start-color-change {
+  animation: focus-color 1s infinite;
+}
+@keyframes focus-color {
+  0% {
+    background-color: rgb(0, 37, 80);
+  }
+  50% {
+    background-color: rgb(255, 0, 212);
+  }
+  100% {
+    background-color: rgb(0, 37, 80);
+  }
+}
+
+@keyframes breathe-out {
+  0% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes breathe-in {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    /* background-color: blue; */
+    transform: scale(1.05);
+  }
+}
+
 /* 
 @media (max-width: 600px) {
   :root {

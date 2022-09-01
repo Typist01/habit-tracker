@@ -1,23 +1,47 @@
 /** @format */
 
+import { getValue } from "@testing-library/user-event/dist/utils";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./HabitDisplayBox.css";
 
 export default function HabitDisplayBox(props) {
   const [buttonPresses, setButtonPresses] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [startAnimation, setStartAnimation] = useState(false);
+  const [stopAnimation, setStopAnimation] = useState(false);
   function defaultIncrementHandler() {
     setButtonPresses((v) => (v += 1));
   }
   useEffect(() => {
+    setAmount(parseInt(props.habit.defaultIncrement) * buttonPresses);
     if (buttonPresses == 0) {
       return;
     }
+    if (buttonPresses == 1) {
+      setStopAnimation(false);
+      setStartAnimation(true);
+    }
     console.log(buttonPresses);
-
     const timerIdentity = setTimeout(() => {
       console.log("call the backend API here");
+      const postBody = {
+        habit_id: props.habit.id,
+        date_recorded: null,
+        amount_done: parseInt(props.habit.defaultIncrement) * buttonPresses,
+      };
+      // const postBody = JSON.stringify(myJSObject);
+      const postUrl =
+        process.env.REACT_APP_POST_ACTIVITY_API +
+        "key=" +
+        process.env.REACT_APP_API_KEY;
+      console.log(postUrl);
+      console.log(postBody);
+      axios.post(postUrl, postBody);
+      setStopAnimation(true);
+      setStartAnimation(false);
       setButtonPresses(0);
-    }, 3000);
+    }, 2000);
 
     return () => {
       // console.log("clear method returned");
@@ -27,12 +51,20 @@ export default function HabitDisplayBox(props) {
 
   return (
     <React.Fragment>
+      {/* <h1>Adding {amount}</h1> */}
       {/* {modalShown?<ModalComponent></ModalComponent>:null} */}
-      <div className="display-habit-container-box ">
+      <div
+        className={`display-habit-container-box ${
+          startAnimation ? "breathe-in" : null
+        } ${stopAnimation ? "breathe-out" : null} `}
+      >
         <div className="habit margin-auto">
-          <div className="textbox">
+          <div className="habit-name-box">
             {/* todo change props  */}
             <h3>{props.habit.name}</h3>
+            <p className={`${amount > 0 ? null : "not-visible"}`}>
+              {"Adding " + amount}
+            </p>
           </div>
         </div>
         {/* <button className="generic-add margin-auto"> */}
@@ -47,7 +79,7 @@ export default function HabitDisplayBox(props) {
             <div className="textbox">
               {/* todo use prop of users chosen number(if exists) */}
               {/* on click, something something data input to database using user chosen number */}
-              <h1>{props.habit.defaultIncrement}</h1>
+              <h1>+{props.habit.defaultIncrement}</h1>
             </div>
           </button>
         ) : (
@@ -74,10 +106,7 @@ export default function HabitDisplayBox(props) {
           </div>
         </div>
       </div>
-      <div style={{ position: "relative", zIndex: "1" }}>
-        {" "}
-        You have entered X increments
-      </div>
+      <div style={{ position: "relative", zIndex: "1" }}> </div>
     </React.Fragment>
   );
 }

@@ -19,6 +19,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @CrossOrigin
 @RestController
@@ -28,6 +29,15 @@ public class ActivityDatumController {
 
     @Autowired
     UserHabitRepository habitRepo;
+
+    public Integer randomIdMaker(){
+        Random random = new Random();
+        Integer tempID = random.nextInt();
+        if (dataRepo.findById(tempID).isPresent()){
+            tempID=randomIdMaker();
+        }
+        return tempID;
+    }
 
     @GetMapping ("activityData")
     public ResponseEntity findAllActivityData(@RequestParam("key") Optional<String> apiKey){
@@ -54,22 +64,7 @@ public class ActivityDatumController {
             return ResponseEntity.status(403).body("api key invalid or not found");
         }
     }
-    @PostMapping ("activityData/new")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity newActivityData(
-            @RequestParam("key") Optional<String> apiKey,
-            @RequestBody String data){
-        if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
-            try{
-                return saveNewActivityFromJsonString(data);
-            } catch(Exception e){
-                System.out.println(e);
-                return ResponseEntity.internalServerError().body("error, you can try again later");
-            }
-        } else{
-            return ResponseEntity.status(403).body("api key invalid or not found");
-        }
-    }
+
     @DeleteMapping ("activityData/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity deleteActivityDataById(
@@ -111,6 +106,76 @@ public class ActivityDatumController {
             return ResponseEntity.status(403).body("api key invalid or not found");
         }
     }
+    @PostMapping ("activityData/new")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity newActivityData(
+            @RequestParam("key") Optional<String> apiKey,
+            @RequestBody String data){
+        if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
+            try{
+                return saveNewActivityFromJsonString(data);
+            } catch(Exception e){
+                System.out.println(e);
+                return ResponseEntity.internalServerError().body("error, you can try again later");
+            }
+        } else{
+            return ResponseEntity.status(403).body("api key invalid or not found");
+        }
+    }
+
+    private ResponseEntity saveNewActivityFromJsonString(String req) throws Exception{
+        JSONParser parser = new JSONParser();
+//        System.out.println((req));
+        ActivityDatum newActivity = new ActivityDatum();
+        System.out.println((req));
+        try{
+            JSONObject json = (JSONObject) parser.parse(req);
+            if (json.get("id")!=null){
+                int id = (Integer.parseInt(String.valueOf(json.get("id"))));
+                if (dataRepo.existsById(id)){
+                    return ResponseEntity.badRequest().body("data already exists");
+                } else{
+                    newActivity.setId(id);
+                }
+            } else{
+                newActivity.setId(randomIdMaker());
+            }
+            int habitId = (Integer.parseInt(String.valueOf(json.get("habit_id"))));
+            if(habitRepo.existsById(habitId)){
+                newActivity.setHabit(habitRepo.getReferenceById(habitId));
+            } else{
+                return ResponseEntity.badRequest().body("habit id not found");
+            }
+            if(json.get("date") == null){
+                newActivity.setDateRecorded(Instant.now());
+            }
+            if(json.get("amount_done") == null){
+                return ResponseEntity.badRequest().body("amount_done cannot be null");
+            } else {
+                System.out.println(Integer.parseInt(String.valueOf(json.get("amount_done"))));
+                newActivity.setAmountDone(Integer.parseInt(String.valueOf(json.get("amount_done"))));
+            }
+            if(json.get("feeling_score") != null){
+                newActivity.setFeelingScore(Integer.parseInt(String.valueOf(json.get("feeling_score"))));
+            }
+            if(json.get("feeling_comment") != null){
+                newActivity.setFeelingComment(String.valueOf(json.get("feeling_comment")));
+            }
+
+            System.out.println(newActivity.getId() + ", " + newActivity.getHabit().getId()+ ", " + newActivity.getAmountDone() + ", " +  newActivity.getDateRecorded());
+            dataRepo.save(newActivity);
+            return ResponseEntity.ok().body("successfully saved");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new Exception("Exception thrown when parsing");
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("issue with adding new data data");
+        }
+    }
+
+
 
     private ActivityDatum patchData(String req) throws Exception{
         JSONParser parser = new JSONParser();
@@ -145,46 +210,6 @@ public class ActivityDatumController {
 
     }
 
-
-    private ResponseEntity saveNewActivityFromJsonString(String req) throws Exception{
-        JSONParser parser = new JSONParser();
-//        System.out.println((req));
-        try{
-            JSONObject json = (JSONObject) parser.parse(req);
-            int id = (Integer.parseInt(String.valueOf(json.get("id"))));
-            int habitId = (Integer.parseInt(String.valueOf(json.get("habit_id"))));
-            ActivityDatum newActivity = new ActivityDatum();
-                if(habitRepo.existsById(habitId)){
-                    newActivity.setHabit(habitRepo.getReferenceById(habitId));
-                } else{
-                    return ResponseEntity.badRequest().body("habit id not found");
-                }
-                if(json.get("date") == null){
-                    newActivity.setDateRecorded(Instant.now());
-                }
-                if(json.get("amount_done") == null){
-                    return ResponseEntity.badRequest().body("amount_done cannot be null");
-                } else {
-                    newActivity.setAmountDone(Integer.parseInt(String.valueOf(json.get("amount_done"))));
-                }
-                if(json.get("feeling_score") != null){
-                    newActivity.setFeelingScore(Integer.parseInt(String.valueOf(json.get("feeling_score"))));
-                }
-                if(json.get("feeling_comment") != null){
-                    newActivity.setFeelingComment(String.valueOf(json.get("feeling_comment")));
-                }
-                newActivity.setId(1);
-            System.out.println(newActivity.getId() + ", " + newActivity.getHabit().getId()+ ", " + newActivity.getAmountDone() + ", " +  newActivity.getDateRecorded());
-                dataRepo.save(newActivity);
-                return ResponseEntity.ok().body("successfully saved");
-
-        } catch (ParseException e) {
-            throw new Exception("Exception thrown when parsing");
-        } catch (Exception e){
-            e.printStackTrace();
-            throw new Exception("issue with adding new data data");
-        }
-    }
 
 }
 
