@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 //import javax.json.*;
 
+@CrossOrigin
 @RestController
 public class UserController {
 

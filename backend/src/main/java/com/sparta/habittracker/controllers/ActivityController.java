@@ -13,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class ActivityController {
     @Autowired

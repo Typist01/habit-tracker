@@ -16,6 +16,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.time.Instant;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class UserTargetController {
 

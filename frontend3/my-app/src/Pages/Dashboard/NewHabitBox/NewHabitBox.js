@@ -15,21 +15,22 @@ export default function NewHabitBox() {
   }
 
   return (
-    <div class="newHabitContainer">
-      <form>
-        <input
-          type="text"
-          id="activity-name"
-          value={activity}
-          onChange={getActivityInput}
-        />
-        <input 
-          type="submit" 
-          value="Add New Activity" 
-          onClick={submitActivity}
-        />
-        
-      </form>
-    </div>
+    <React.Fragment>
+      <div class="newHabitContainer">
+        <form>
+          <input
+            type="text"
+            id="activity-name"
+            value={activity}
+            onChange={getActivityInput}
+          />
+          <input
+            type="submit"
+            value="Add New Activity"
+            onClick={submitActivity}
+          />
+        </form>
+      </div>
+    </React.Fragment>
   );
 }

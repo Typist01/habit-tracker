@@ -19,6 +19,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class ActivityDatumController {
     @Autowired
