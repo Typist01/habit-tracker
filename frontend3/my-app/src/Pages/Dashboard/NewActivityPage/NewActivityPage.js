@@ -10,4 +10,3 @@ export default function NewActivityPage() {
     </React.Fragment>
   );
 }
-ؤءا

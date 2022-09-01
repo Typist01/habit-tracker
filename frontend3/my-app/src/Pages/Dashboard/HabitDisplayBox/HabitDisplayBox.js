@@ -16,10 +16,11 @@ export default function HabitDisplayBox(props) {
 
     const timerIdentity = setTimeout(() => {
       console.log("call the backend API here");
+      setButtonPresses(0);
     }, 3000);
 
     return () => {
-      console.log("clear method returned");
+      // console.log("clear method returned");
       clearTimeout(timerIdentity);
     };
   }, [buttonPresses]);
