@@ -1,6 +1,7 @@
 package com.sparta.habittracker.controllers;
 
 import com.sparta.habittracker.Authentication;
+import com.sparta.habittracker.entities.Activity;
 import com.sparta.habittracker.entities.ActivityDatum;
 import com.sparta.habittracker.entities.UserHabit;
 import com.sparta.habittracker.repositories.ActivityDatumRepository;
@@ -57,23 +58,14 @@ public class ActivityDatumController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity newActivityData(
             @RequestParam("key") Optional<String> apiKey,
-            @RequestBody ActivityDatum activityDatum){
+            @RequestBody String data){
         if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
-        if (activityDatum == null || activityDatum.getId()== 0){
-            return ResponseEntity.badRequest()
-                    .header("message", "")
-                    .body("Check activityData or id, neither can be null");
-        }
-        if (dataRepo.findById(activityDatum.getId()).isPresent()){
-            return ResponseEntity.status(409)
-                    .header("message", "The id already exists")
-                    .body("fail");
-        }
-        else dataRepo.save(activityDatum);
-
-        return ResponseEntity.status(201)
-                .header("message", "successfully added new activityData")
-                .body("success");
+            try{
+                return saveNewActivityFromJsonString(data);
+            } catch(Exception e){
+                System.out.println(e);
+                return ResponseEntity.internalServerError().body("error, you can try again later");
+            }
         } else{
             return ResponseEntity.status(403).body("api key invalid or not found");
         }
@@ -146,10 +138,53 @@ public class ActivityDatumController {
         } catch (ParseException e) {
             throw new Exception("Exception thrown when parsing");
         } catch (Exception e){
+            e.printStackTrace();
             throw new Exception("issue with patching data");
         }
         throw new Exception("Exception thrown when parsing");
 
     }
 
+
+    private ResponseEntity saveNewActivityFromJsonString(String req) throws Exception{
+        JSONParser parser = new JSONParser();
+//        System.out.println((req));
+        try{
+            JSONObject json = (JSONObject) parser.parse(req);
+            int id = (Integer.parseInt(String.valueOf(json.get("id"))));
+            int habitId = (Integer.parseInt(String.valueOf(json.get("habit_id"))));
+            ActivityDatum newActivity = new ActivityDatum();
+                if(habitRepo.existsById(habitId)){
+                    newActivity.setHabit(habitRepo.getReferenceById(habitId));
+                } else{
+                    return ResponseEntity.badRequest().body("habit id not found");
+                }
+                if(json.get("date") == null){
+                    newActivity.setDateRecorded(Instant.now());
+                }
+                if(json.get("amount_done") == null){
+                    return ResponseEntity.badRequest().body("amount_done cannot be null");
+                } else {
+                    newActivity.setAmountDone(Integer.parseInt(String.valueOf(json.get("amount_done"))));
+                }
+                if(json.get("feeling_score") != null){
+                    newActivity.setFeelingScore(Integer.parseInt(String.valueOf(json.get("feeling_score"))));
+                }
+                if(json.get("feeling_comment") != null){
+                    newActivity.setFeelingComment(String.valueOf(json.get("feeling_comment")));
+                }
+                newActivity.setId(1);
+            System.out.println(newActivity.getId() + ", " + newActivity.getHabit().getId()+ ", " + newActivity.getAmountDone() + ", " +  newActivity.getDateRecorded());
+                dataRepo.save(newActivity);
+                return ResponseEntity.ok().body("successfully saved");
+
+        } catch (ParseException e) {
+            throw new Exception("Exception thrown when parsing");
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("issue with adding new data data");
+        }
+    }
+
 }
+

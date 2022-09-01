@@ -6,6 +6,10 @@
   --button-text-size: 8px;
 }
 
+button:hover{
+  cursor: pointer;
+}
+
 .display-habit-container-box {
   background-color: rgb(0, 37, 80);
   position: relative;
@@ -39,6 +43,7 @@
 }
 
 .textbox {
+  color: white;
   margin-left: 10px;
   margin-right: 10px;
 

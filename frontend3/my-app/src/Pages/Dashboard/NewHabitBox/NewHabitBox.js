@@ -1,5 +1,6 @@
 /** @format */
 import React, { useEffect, useState } from "react";
+import { AuthContext } from "../../../App";
 import "./NewHabitBox.css";
 export default function NewHabitBox() {
   const [activity, setActivity] = useState("I want to ");
@@ -13,23 +14,19 @@ export default function NewHabitBox() {
   function submitActivity() {
     window.alert(activity);
   }
+  const buttonStyle = {
+    color: "white",
+    backgroundColor: "#00428D",
+    width: "400px",
+    borderRadius: "8px",
+    height: "50px",
+    margin: "20px auto",
+  };
 
   return (
     <React.Fragment>
-      <div class="newHabitContainer">
-        <form>
-          <input
-            type="text"
-            id="activity-name"
-            value={activity}
-            onChange={getActivityInput}
-          />
-          <input
-            type="submit"
-            value="Add New Activity"
-            onClick={submitActivity}
-          />
-        </form>
+      <div style={{ display: "flex" }}>
+        <button style={buttonStyle}> Add a new habit... </button>
       </div>
     </React.Fragment>
   );

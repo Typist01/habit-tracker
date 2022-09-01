@@ -53,7 +53,6 @@ public class ActivityController {
         } else{
             return ResponseEntity.badRequest().body("api key invalid or not found");
         }
-
     }
     @DeleteMapping("/activities/delete/{id}")
     public ResponseEntity deleteActivityById(@RequestParam("key") Optional<String>apiKey, @PathVariable String id){

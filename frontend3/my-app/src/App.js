@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./Pages/Signup/Signup";
 import { useEffect, useState, useContext, createContext } from "react";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import NewActivityPage from "./Pages/Dashboard/NewActivityPage/NewActivityPage.js";
 
 export const AuthContext = createContext();
 
@@ -49,6 +50,7 @@ export default function App() {
             }
           />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/new-activity" element={<NewActivityPage />} />
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>
