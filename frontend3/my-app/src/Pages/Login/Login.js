@@ -9,17 +9,16 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [nameLongEnough, setNameLongEnough] = useState(false);
   const [password, setPassword] = useState("");
+  const [disableInputs, setDisableInputs] = useState(false);
 
   const ctx = useContext(AuthContext);
   const poorUsernameEntry = {
     color: "red",
     fontSize: "12px",
   };
-
   function toggleMagestic() {
     setMagesticMode((oldMode) => !oldMode);
   }
-
   function userLengthCheck(e) {
     console.log(e.target.value);
     const value = e.target.value;
@@ -46,6 +45,7 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setDisableInputs(true);
     const name = e.target.name;
     // console.log(name);
     if (name == "login") {
@@ -76,6 +76,7 @@ export default function Login() {
             <h1> Login</h1>
             <h2>Username</h2>
             <input
+    
               className={magesticMode ? "magestic-mode" : null}
               value={username}
               onChange={userLengthCheck}
@@ -87,7 +88,6 @@ export default function Login() {
             >
               A username must be 4 or more characters
             </label>
-
             <h2>Password</h2>
             <input
               className={magesticMode ? "magestic-mode" : null}

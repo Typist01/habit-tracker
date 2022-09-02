@@ -8,6 +8,7 @@
 }
 .signup-container input {
   height: 30px;
+  border-radius: 4px;
 }
 
 .signup-container {
