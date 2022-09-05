@@ -5,6 +5,6 @@ import org.slf4j.LoggerFactory;
 
 public class LogUtility {
 
-    public static final Logger logger = LoggerFactory.getLogger(HabitTrackerApplication.class);
+    public static final Logger customLogger = LoggerFactory.getLogger("custom-generated");
 
 }
