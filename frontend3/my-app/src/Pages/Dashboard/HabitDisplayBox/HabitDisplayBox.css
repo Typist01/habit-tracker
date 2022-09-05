@@ -130,25 +130,47 @@ button:hover {
 .display-habit-container-box .custom-input-entry{
   position: absolute;
   border: 0;
-  left: 20%;
+  left: 5%;
   top: 75px;
+  width: 70%;
   border-radius: 5px;
-  width: 32.5%;
   height: var(--box-height);
   background-color: rgb(0, 66, 141);
   font-size: var(--button-text-size);
 }
+.custom-input-entry input{
+  color: white;
+  border:none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 20px;
+  width: 100%;
+  border-radius: 0%;
+  background-color: rgb(0, 66, 141);
+
+  /* font-size: var(--button-text-size); */
+  font-size: 18px;
+text-align: center;
+  
+}
+
+
 .display-habit-container-box .custom-input-submit{
   position: absolute;
   border: 0;
-  left: 55%;
+  left: 78.3%;
   top: 75px;
   border-radius: 5px;
-  width: 10%;
+  width: 20%;
   height: var(--box-height);
   background-color: rgb(0, 66, 141);
   font-size: var(--button-text-size);
+  outline: none;
 }
+.display-habit-container-box .custom-input-submit :hover{
+  cursor:pointer;
+}
+
 .habit-display-margin-auto {
   margin: auto;
   margin-top: 10px;
@@ -164,6 +186,9 @@ button:hover {
 }
 .breathe-out {
   animation: breathe-out 0.1s;
+}
+.custom-form{
+  position:block;
 }
 
 .start-color-change {
@@ -202,6 +227,17 @@ button:hover {
   }
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 /* 
 @media (max-width: 600px) {
   :root {

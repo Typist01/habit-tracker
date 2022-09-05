@@ -56,6 +56,46 @@ export default function HabitDisplayBox(props) {
 
   }
 
+  const [customInputValue, setCustomInputValue] = useState("");
+  // const [submitted, setIsSubmitted] = useState("submitted")
+  // useEffect(() => {
+  //   console.log(customInputValue)
+  // }, [customInputValue])
+
+  function handleCustomInputChange(e){
+    const val = e.target.value;
+    setCustomInputValue(val);
+
+    return
+    // console.log (val)
+    // console.log(typeof val);
+    // if(typeof (val) === 'number'){
+    //   console.log("is a number")
+    //   setCustomInputValue(val);
+    //   return
+    // }
+    // console.log("e or - entered")
+    // return;
+  }
+
+  async function customInputSubmitHandler(e){
+    e.preventDefault();
+    const postBody = {
+      habit_id: props.habit.id,
+      date_recorded: null,
+      amount_done: parseInt(customInputValue),
+    };
+    // const postBody = JSON.stringify(myJSObject);
+    const postUrl =
+      process.env.REACT_APP_POST_ACTIVITY_API +
+      "key=" +
+      process.env.REACT_APP_API_KEY;
+    const result = await axios.post(postUrl, postBody);
+    console.log(result);
+
+    return 0;
+  }
+
   return (
     <React.Fragment>
       {/* <h1>Adding {amount}</h1> */}
@@ -113,18 +153,24 @@ export default function HabitDisplayBox(props) {
             <h1>Custom</h1>
           </div>
         </button>
+
+        <form className="custom-form" method="post" onSubmit={customInputSubmitHandler}>
         <div className={`custom-input-entry ${customInputMode ? null : "hidden"}`}>
           <div className="textbox">
-            <h1>Custom number goes here</h1>
+          <input type="number" value={customInputValue} onChange={handleCustomInputChange}  placeholder="custom number goes here">
+          </input>
           </div>
         </div>
-        <div className={`custom-input-submit ${customInputMode ? null : "hidden"}`}>
+        <button type="submit" className={`custom-input-submit ${customInputMode ? null : "hidden"}`}>
           <div className="textbox">
-            <h1>Custom number goes here</h1>
+            <h1>Submit</h1>
           </div>
-        </div>
+        </button>
+        </form>
+        
       </div>
       <div style={{ position: "relative", zIndex: "1" }}> </div>
+      
     </React.Fragment>
   );
 }
