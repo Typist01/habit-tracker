@@ -24,9 +24,9 @@ function getUsers() {
   //     // always executed
   //   });
 }
-getUsers();
+// getUsers();
 
-async function signUp(email, username, password) {
+export async function signUp(email, username, password) {
   return axios
     .post("http://localhost:8080/users?" + "key=" + API_KEY, {
       email: email,
@@ -34,21 +34,10 @@ async function signUp(email, username, password) {
       passwordToken: password,
     })
     .then(function (response) {
-      // console.log("hi from .then in signup");
-      // console.log(response);
-      // console.log(response);
-
-      return response;
-      // if (response.status == 200) {
-      //   return "success";
-      // }
-      // return ".then in signUp complete";
-      // console.log("data.status: " + response.status);
-      // console.log(".body: " + response.body);
-      // console.log("data.body: " + response.data.body);
+      return { result: "success", response };
     })
     .catch(function (error) {
-      return "fail";
+      return { result: "fail", response: error.response };
     });
 }
 
@@ -56,7 +45,7 @@ signUp("email2@email.com", "user102", "password").then((data) =>
   console.log(data)
 );
 
-function loginUser(username, password) {
+export function loginUser(username, password) {
   // TODO if successful return true
   return axios
     .get(
@@ -69,18 +58,17 @@ function loginUser(username, password) {
         password
     )
     .then((response) => {
-      return response;
+      return { result: "success", response };
     })
     .catch(function (error) {
-      return error.response;
+      return { result: "fail", response: error.response };
     });
 }
 
-
-loginUser("user102", "password").then((data) => {
-  const dataStatus = data.status;
-  console.log(dataStatus);
-});
+// loginUser("user102", "password").then((data) => {
+//   const dataStatus = data.status;
+//   console.log(dataStatus);
+// });
 // const response = loginUser("user102", "password");
 // console.log(response);
 
