@@ -3,7 +3,7 @@ import "./Login.css";
 import React, { useState, useEffect, useContext } from "react";
 import { isValidDateValue } from "@testing-library/user-event/dist/utils";
 import { AuthContext } from "../../App";
-
+import { Link } from "react-router-dom";
 export default function Login() {
   const [magesticMode, setMagesticMode] = useState(false);
   const [username, setUsername] = useState("");
@@ -49,7 +49,7 @@ export default function Login() {
     const name = e.target.name;
     // console.log(name);
     if (name == "login") {
-      ctx.handleLogin();
+      ctx.handleLogin(username, password);
     } else if (name == "logout") {
       ctx.handleLogout();
     }
@@ -64,52 +64,61 @@ export default function Login() {
   //     </div>
   //   );
   // }
-
+  if (ctx.isLoggedIn) {
+    return (
+      <React.Fragment>
+        <h1> You are logged in </h1>
+        <Link to="/">
+          <p> click here to return to dashboard </p>
+        </Link>
+      </React.Fragment>
+    );
+  }
   return (
     <React.Fragment>
-      {ctx.isLoggedIn ? <h1>You're logged in</h1> : null}
-      <form name="login" onSubmit={handleSubmit}>
-        <div
+      <form class="login-content-box" name="login" onSubmit={handleSubmit}>
+        {/* <div
           class={`login-content-box ${magesticMode ? "magestic-mode" : null}`}
-        >
-          <div class="login-wrapper">
-            <h1> Login</h1>
-            <h2>Username</h2>
-            <input
-    
-              className={magesticMode ? "magestic-mode" : null}
-              value={username}
-              onChange={userLengthCheck}
-            ></input>
-            <br />
-            <label
-              className={nameLongEnough ? "hidden" : null}
-              style={poorUsernameEntry}
-            >
-              A username must be 4 or more characters
-            </label>
-            <h2>Password</h2>
-            <input
-              className={magesticMode ? "magestic-mode" : null}
-              value={password}
-              onChange={(e) => {
-                const value = e.target.value;
-                setPassword(value);
-              }}
-            ></input>
-            <br />
+        > */}
+        <div class="login-wrapper">
+          <h1> Login</h1>
+          <h2>Username</h2>
+          <input
+            disabled={disableInputs}
+            // className={magesticMode ? "magestic-mode" : null}
+            value={username}
+            onChange={userLengthCheck}
+          ></input>
+          <br />
+          <label
+            className={nameLongEnough ? "hidden" : null}
+            style={poorUsernameEntry}
+          >
+            A username must be 4 or more characters
+          </label>
+          <h2>Password</h2>
+          <input
+            disabled={disableInputs}
+            // className={magesticMode ? "magestic-mode" : null}
+            value={password}
+            onChange={(e) => {
+              const value = e.target.value;
+              setPassword(value);
+            }}
+          ></input>
+          <br />
 
-            <button
-              type="submit"
-              className={magesticMode ? "magestic-mode" : null}
-              onClick={() => {
-                toggleMagestic();
-              }}
-            >
-              Login
-            </button>
-          </div>
+          <button
+            type="submit"
+            // className={magesticMode ? "magestic-mode" : null}
+            onClick={() => {
+              toggleMagestic();
+            }}
+          >
+            Login
+          </button>
         </div>
+        {/* </div> */}
       </form>
       <form name="logout" onSubmit={handleSubmit}>
         <button type="submit">Logout</button>

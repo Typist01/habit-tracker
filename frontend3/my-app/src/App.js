@@ -7,13 +7,20 @@ import Signup from "./Pages/Signup/Signup";
 import { useEffect, useState, useContext, createContext } from "react";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import NewActivityPage from "./Pages/Dashboard/NewActivityPage/NewActivityPage.js";
+import { loginUser } from "./API/authentication";
 
 export const AuthContext = createContext();
 
 export default function App() {
-  function loginHandler(username) {
-    localStorage.setItem("username", username);
-    setIsLoggedIn(true);
+  async function loginHandler(username, password) {
+    const result = await loginUser(username, password);
+    if (result.result == "success") {
+      localStorage.setItem("username", username);
+      setIsLoggedIn(true);
+      return;
+    } else {
+      return;
+    }
   }
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {

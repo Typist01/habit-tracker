@@ -1,6 +1,6 @@
 /** @format */
 import "./Signup.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { signUp } from "../../API/authentication";
 export default function Signup() {
@@ -9,9 +9,7 @@ export default function Signup() {
     email: "",
     password: "",
   });
-
-  const [disableInputs, setDisableInputs] = useState()
-
+  const [disableInputs, setDisableInputs] = useState();
   function handleChange(e) {
     const name = e.target.name;
     const val = e.target.value;
@@ -41,9 +39,13 @@ export default function Signup() {
     document.body.style = "background:black; color:white;";
   }, []);
 
+  const [submission, setSubmission] = useState({
+    success: false,
+    fail: false,
+  });
   async function submitHandler(e) {
     e.preventDefault();
-
+    setDisableInputs(true);
     const response = await signUp(
       userDetails.email,
       userDetails.username,
@@ -51,54 +53,68 @@ export default function Signup() {
     );
     console.log(response.result);
     console.log(response.response);
+    if (response.result == "success") {
+      setSubmission((v) => ({ ...v, success: true }));
+    } else {
+      setSubmission((v) => ({ ...v, fail: true }));
+      setDisableInputs(false);
+    }
   }
 
+  if (submission.success) {
+    return (
+      <React.Fragment>
+        <h1>Signed up successfully</h1>
+      </React.Fragment>
+    );
+  }
   return (
-    <div class="signup-container">
-      <div>
-        <h1> Hi from signup </h1>
-      </div>
-      <form onSubmit={submitHandler}>
-        <div>
-          <label>
-            Username:
-            <input
-              type="text"
-              name="username"
-              value={userDetails.username}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Email:
-            <input
-              type="text"
-              name="email"
-              value={userDetails.email}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password:
-            <input
-              value={userDetails.password}
-              type="password"
-              name="password"
-              onChange={handleChange}
-            />
-          </label>
-          <p style={isValid ? strongSecurityStyle : weakSecurityStyle}>
-            Security
-          </p>
-        </div>
+    <form className="login-content-box" onSubmit={submitHandler}>
+      <h1 className={submission.fail ? null : "hidden"}>
+        Error, please try again
+      </h1>
+      <div className="login-wrapper sign-up">
+        <h1> Sign up </h1>
+
+        <label className="sign-up">
+          Username:
+          <input
+            disabled={disableInputs}
+            type="text"
+            name="username"
+            value={userDetails.username}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            disabled={disableInputs}
+            type="text"
+            name="email"
+            value={userDetails.email}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            disabled={disableInputs}
+            value={userDetails.password}
+            type="password"
+            name="password"
+            onChange={handleChange}
+          />
+        </label>
+        <p style={isValid ? strongSecurityStyle : weakSecurityStyle}>
+          Security
+        </p>
+        <button type="submit"> Submit </button>
+        {/* 
         <div class="signup-button-wrapper">
           <input id="signup-submit" type="submit" value="Sign up" />
-        </div>
-      </form>
-    </div>
+        </div> */}
+      </div>
+    </form>
   );
 }

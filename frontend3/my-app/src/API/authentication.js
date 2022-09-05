@@ -45,7 +45,7 @@ signUp("email2@email.com", "user102", "password").then((data) =>
   console.log(data)
 );
 
-function loginUser(username, password) {
+export function loginUser(username, password) {
   // TODO if successful return true
   return axios
     .get(
