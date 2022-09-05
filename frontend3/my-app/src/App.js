@@ -7,6 +7,7 @@ import Signup from "./Pages/Signup/Signup";
 import { useEffect, useState, useContext, createContext } from "react";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import NewActivityPage from "./Pages/Dashboard/NewActivityPage/NewActivityPage.js";
+import DataDisplay from "./Pages/Data-Display/DataDisplay";
 import { loginUser } from "./API/authentication";
 
 export const AuthContext = createContext();
@@ -58,6 +59,9 @@ export default function App() {
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/new-activity" element={<NewActivityPage />} />
+          <Route path="/data-display" element={<DataDisplay />} />
+          <Route path="/data-display/:habitID" element={<DataDisplay />} />
+
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>

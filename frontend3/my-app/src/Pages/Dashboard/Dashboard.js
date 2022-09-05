@@ -31,7 +31,8 @@ export default function Dashboard() {
       {/* <div> */}
       <NewHabitBox />
       {userHabits.map((element) => {
-        return <HabitDisplayBox text="text from dashboard" habit={element} />;
+        return <HabitDisplayBox key={element} text="text from dashboard" habit={element} />;
+      
       })}
       {/* </div> */}
     </React.Fragment>
