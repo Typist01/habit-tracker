@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "../../../App";
 import "./NewHabitBox.css";
+import { Link } from "react-router-dom";
 export default function NewHabitBox() {
   const [activity, setActivity] = useState("I want to ");
 
@@ -26,7 +27,11 @@ export default function NewHabitBox() {
   return (
     <React.Fragment>
       <div style={{ display: "flex" }}>
-        <button style={buttonStyle}> Add a new habit... </button>
+        <a style={{ margin: "auto" }}>
+          <Link to="/add-new-habit">
+            <button style={buttonStyle}> Add a new habit... </button>
+          </Link>
+        </a>
       </div>
     </React.Fragment>
   );

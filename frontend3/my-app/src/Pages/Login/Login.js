@@ -71,6 +71,7 @@ export default function Login() {
         <Link to="/">
           <p> click here to return to dashboard </p>
         </Link>
+        <button onClick={ctx.handleLogout}>Logout</button>
       </React.Fragment>
     );
   }

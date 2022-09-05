@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./Pages/Signup/Signup";
 import { useEffect, useState, useContext, createContext } from "react";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-import NewActivityPage from "./Pages/Dashboard/NewActivityPage/NewActivityPage.js";
 import { loginUser } from "./API/authentication";
+import NewHabitPage from "./Pages/Dashboard/NewHabitBox/Components/NewHabitPage/NewHabitPage";
 
 export const AuthContext = createContext();
 
@@ -15,7 +15,10 @@ export default function App() {
   async function loginHandler(username, password) {
     const result = await loginUser(username, password);
     if (result.result == "success") {
+      console.log(result.response);
+      console.log(result.response.data);
       localStorage.setItem("username", username);
+      localStorage.setItem("userId", result.response.data);
       setIsLoggedIn(true);
       return;
     } else {
@@ -57,7 +60,7 @@ export default function App() {
             }
           />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/new-activity" element={<NewActivityPage />} />
+          <Route path="add-new-habit" element={<NewHabitPage />} />
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>

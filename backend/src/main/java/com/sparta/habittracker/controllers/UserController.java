@@ -91,7 +91,7 @@ public class UserController {
             if (repo.existsByUsername(username)) {
                 User user = repo.findUserByUsername(username);
                 if (HashingUtility.checkPassword(password, user.getPasswordToken())) {
-                    return ResponseEntity.accepted().body("success");
+                    return ResponseEntity.accepted().body(user.getId().toString());
                 } else {
                     return ResponseEntity.status(403).body("fail");
                 }

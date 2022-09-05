@@ -1,0 +1,46 @@
+/** @format */
+:root {
+  --bg-blue: #002550;
+  --fg-blue: #00428d;
+}
+
+.create-habit {
+  width: 450px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--bg-blue);
+}
+.create-habit label {
+  display: block;
+  font-size: 22px;
+}
+.create-habit input {
+  display: block;
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--fg-blue);
+  color: rgb(238, 238, 238);
+  padding: 3px 8px;
+  font-size: 18px;
+}
+.create-habit input:focus {
+  outline: none;
+}
+.create-habit button {
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  width: 120px;
+  height: 50px;
+  margin-top: 20px;
+  background-color: var(--fg-blue);
+  color: white;
+}
+.create-habit button {
+    background-color: var(--fg-blue);
+}

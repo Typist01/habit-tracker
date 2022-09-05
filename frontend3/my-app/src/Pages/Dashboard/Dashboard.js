@@ -1,5 +1,6 @@
 /** @format */
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getHabitsByUser } from "../../API/dashboard-api";
 import "./Dashboard.css";
 import HabitDisplayBox from "./HabitDisplayBox/HabitDisplayBox";
@@ -11,7 +12,6 @@ export default function Dashboard() {
   var habit_array;
   useEffect(() => {
     console.log("use effect running");
-
     getHabitsByUser(username)
       .then((res) => {
         console.log(res);
@@ -20,21 +20,24 @@ export default function Dashboard() {
       .catch((error) => console.log(error.response));
   }, []);
 
-  // habit_array = userHabits.map((element) => {
-  //   return <HabitDisplayBox element={element} />;
-  // });
   useEffect(() => {
     document.body.style = "background:#1E1E1E";
   }, []);
   return (
     <React.Fragment>
-      {/* <div> */}
-      <NewHabitBox />
-      {userHabits.map((element) => {
-        return <HabitDisplayBox key={element} text="text from dashboard" habit={element} />;
-      
-      })}
-      {/* </div> */}
+      <div>
+        <NewHabitBox />
+
+        {userHabits.map((element) => {
+          return (
+            <HabitDisplayBox
+              key={element}
+              text="text from dashboard"
+              habit={element}
+            />
+          );
+        })}
+      </div>
     </React.Fragment>
   );
 }
