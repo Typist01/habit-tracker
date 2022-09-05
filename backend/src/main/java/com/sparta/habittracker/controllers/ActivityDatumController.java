@@ -47,7 +47,28 @@ public class ActivityDatumController {
             return ResponseEntity.status(403).body("api key invalid or not found");
         }
     }
-    
+
+    @GetMapping ("activityDataByHabit")
+    public ResponseEntity findAllActivityDataByHabit(@RequestParam("key") Optional<String> apiKey, @RequestParam("habitID") Optional<String> userHabitId){
+        System.out.println(apiKey);
+        if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
+            System.out.println("a");
+            if(userHabitId != null){
+                UserHabit userHabit = habitRepo.findById(Integer.parseInt(userHabitId.get())).get();
+                System.out.println("e " + userHabit);
+                if (userHabit != null){
+                    System.out.println("f");
+                    return ResponseEntity.ok().body(dataRepo.findAllByHabit(userHabit));
+                }
+                else return ResponseEntity.badRequest().body("habit contained an invalid or empty ID");
+            }
+            else return ResponseEntity.badRequest().body("no habit was received");
+        }
+        else{
+            return ResponseEntity.status(403).body("api key invalid or not found");
+        }
+    }
+
     @GetMapping ("activityData/{id}")
     public ResponseEntity findActivityDataById(
             @RequestParam("key") Optional<String> apiKey,
@@ -174,6 +195,8 @@ public class ActivityDatumController {
             throw new Exception("issue with adding new data data");
         }
     }
+
+
 
 
 

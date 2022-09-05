@@ -111,7 +111,7 @@ export default function HabitDisplayBox(props) {
       >
         
         <div className="habit habit-display-margin-auto">
-        <Link to={pathName} habit={props.habit}>
+        <Link to={pathName+"/"+props.habit.id}>
           <div className="habit-name-box">
             {/* todo change props  */}
             <h3>{props.habit.name}</h3>
