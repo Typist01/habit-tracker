@@ -1,6 +1,7 @@
 /** @format */
 
 import React from "react";
+import "./SuccessPage.css";
 
 export default function SuccessPage() {
   return (

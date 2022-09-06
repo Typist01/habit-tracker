@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SuccessPage from "../SuccessPage/SuccessPage";
 import "./MoreDetails.css";
+import FailPage from "../FailPage/FailPage";
 export default function MoreDetails(props) {
   const [userInputs, setUserInputs] = useState({
     habitName: "",
@@ -22,6 +23,7 @@ export default function MoreDetails(props) {
     console.log(localStorage.getItem("userId"));
   });
   const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
   function submitHandler(e) {
     e.preventDefault();
     setDisableInputs(true);
@@ -37,16 +39,24 @@ export default function MoreDetails(props) {
       unitType: props.units,
       defaultIncrement: userInputs.regularSize,
     };
-    axios.post(path, postBody).then((data) => {
-      console.log(data);
-      if (data.data === "habit saved successfully") {
-        setSuccess(true);
-      }
-    });
+    axios
+      .post(path, postBody)
+      .then((data) => {
+        console.log(data);
+        if (data.data === "habit saved successfully") {
+          setSuccess(true);
+        }
+      })
+      .catch((error) => {
+        setFail(true);
+        console.log(error);
+      });
   }
 
   if (success) {
     return <SuccessPage />;
+  } else if (fail) {
+    return <FailPage />;
   }
 
   return (
