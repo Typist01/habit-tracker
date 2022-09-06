@@ -50,14 +50,10 @@ public class ActivityDatumController {
 
     @GetMapping ("activityDataByHabit")
     public ResponseEntity findAllActivityDataByHabit(@RequestParam("key") Optional<String> apiKey, @RequestParam("habitID") Optional<String> userHabitId){
-        System.out.println(apiKey);
         if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
-            System.out.println("a");
             if(userHabitId != null){
                 UserHabit userHabit = habitRepo.findById(Integer.parseInt(userHabitId.get())).get();
-                System.out.println("e " + userHabit);
                 if (userHabit != null){
-                    System.out.println("f");
                     return ResponseEntity.ok().body(dataRepo.findAllByHabit(userHabit));
                 }
                 else return ResponseEntity.badRequest().body("habit contained an invalid or empty ID");
