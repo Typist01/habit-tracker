@@ -4,6 +4,7 @@ import { getAllDataByHabit } from "../../API/habit-data-api";
 import React, { useEffect, useState } from "react";
 import {useParams} from "react-router-dom"
 import axios from "axios";
+import EntryDisplayBox from "./EntryDisplayBox/EntryDisplayBox";
 
 export default function DataDisplay(){
     const {habitID} = useParams();
@@ -41,7 +42,7 @@ export default function DataDisplay(){
         <div className="data-display-table">
         Table function yet to be implemented...
         </div>
-        {habitData.map((entry) => {return <div key={entry.id}>{entry.id}</div>})}
+        {habitData.map((entry) => {return <EntryDisplayBox key={entry} entry={entry} />})}
 
         </React.Fragment>
     )
