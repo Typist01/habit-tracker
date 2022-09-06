@@ -4,6 +4,7 @@ import { getValue } from "@testing-library/user-event/dist/utils";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./HabitDisplayBox.css";
+import {Link} from "react-router-dom";
 
 export default function HabitDisplayBox(props) {
   const [buttonPresses, setButtonPresses] = useState(0);
@@ -96,17 +97,21 @@ export default function HabitDisplayBox(props) {
     return 0;
   }
 
+  const pathName="/data-display"
   return (
     <React.Fragment>
       {/* <h1>Adding {amount}</h1> */}
       {/* {modalShown?<ModalComponent></ModalComponent>:null} */}
+      
       <div
         className={`display-habit-container-box 
         ${startAnimation ? "breathe-in" : null} 
         ${stopAnimation ? "breathe-out" : null}
         ${customInputMode ? "big-habit-container-box": null}`}
       >
+        
         <div className="habit habit-display-margin-auto">
+        <Link to={pathName+"/"+props.habit.id}>
           <div className="habit-name-box">
             {/* todo change props  */}
             <h3>{props.habit.name}</h3>
@@ -114,6 +119,7 @@ export default function HabitDisplayBox(props) {
               {"Adding " + amount}
             </p>
           </div>
+        </Link>
         </div>
         {/* <button className="generic-add habit-display-margin-auto"> */}
         {props.habit.defaultIncrement ? (
@@ -170,7 +176,6 @@ export default function HabitDisplayBox(props) {
         
       </div>
       <div style={{ position: "relative", zIndex: "1" }}> </div>
-      
     </React.Fragment>
   );
 }
