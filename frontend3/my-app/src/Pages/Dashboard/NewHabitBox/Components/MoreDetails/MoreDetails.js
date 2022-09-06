@@ -1,7 +1,7 @@
 /** @format */
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SuccessPage from "../SuccessPage/SuccessPage";
 import "./MoreDetails.css";
 export default function MoreDetails(props) {
@@ -18,6 +18,9 @@ export default function MoreDetails(props) {
     if (name == "regularSize")
       setUserInputs((v) => ({ ...v, regularSize: val }));
   }
+  useEffect(() => {
+    console.log(localStorage.getItem("userId"));
+  });
   const [success, setSuccess] = useState(false);
   function submitHandler(e) {
     e.preventDefault();

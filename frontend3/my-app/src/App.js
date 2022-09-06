@@ -28,7 +28,8 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const storageState = localStorage.getItem("username");
-    if (storageState == null) {
+    const userId = localStorage.getItem("userId");
+    if (storageState == null || userId == null) {
       setIsLoggedIn(false);
     } else {
       setIsLoggedIn(true);
@@ -38,6 +39,7 @@ export default function App() {
   function logoutHandler() {
     // console.log("logout handler")
     localStorage.removeItem("username");
+    localStorage.removeItem("userId");
     setIsLoggedIn(false);
   }
 

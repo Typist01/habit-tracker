@@ -15,6 +15,7 @@ export default function NewHabitBox() {
   function submitActivity() {
     window.alert(activity);
   }
+  
   const buttonStyle = {
     color: "white",
     backgroundColor: "#00428D",
