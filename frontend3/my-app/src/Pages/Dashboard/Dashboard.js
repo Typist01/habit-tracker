@@ -8,7 +8,7 @@ import NewHabitBox from "./NewHabitBox/NewHabitBox";
 
 export default function Dashboard() {
   const [userHabits, setUserHabits] = useState([]);
-  const username = "username7";
+  const username = localStorage.getItem("username");
   var habit_array;
   useEffect(() => {
     console.log("use effect running");

@@ -27,7 +27,7 @@ export default function MoreDetails(props) {
   function submitHandler(e) {
     e.preventDefault();
     setDisableInputs(true);
-    const userId = localStorage.getItem("userId");
+    const userId = parseInt(localStorage.getItem("userId"));
     const path =
       process.env.REACT_APP_CREATE_HABIT_API +
       "key=" +
