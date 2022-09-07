@@ -3,18 +3,25 @@ import "./EntryDisplayBox.css";
 
 export default function EntryDisplayBox(props){
     const [deleteCheck, setDeleteCheck] = useState(false);
+    const [isDeleted, setIsDeleted] = useState(false);
 
-    function deleteButtonHandler(){
+    function deleteModeToggle(){
       setDeleteCheck((v) => (!v));
       return;
     }
+    function confirmedDelete(){
+      setIsDeleted(true);
+      props.onDelete(props.entry.id);
+    }
+    
 
 
     return (
     <React.Fragment>
       <div
         className={`display-entry-container-box 
-        ${deleteCheck ? "big-habit-container-box": null}`}
+        ${deleteCheck ? "big-habit-container-box": null}
+        ${isDeleted ? "entry-hidden" : null}`}
       >
         
         <div className="date entry-display-margin-auto">
@@ -35,21 +42,21 @@ export default function EntryDisplayBox(props){
           </div>
         </button>
 
-        <button className={"delete entry-display-margin-auto"} onClick={deleteButtonHandler}>
+        <button className={"delete entry-display-margin-auto"} onClick={deleteModeToggle}>
           <div className="entry-textbox" style={{marginLeft:0 , marginRight:0}}>
             <h3>X</h3>
           </div>
         </button>
 
-        <button className={`delete-confirm ${deleteCheck ? null : "hidden"}`}>
+        <button className={`delete-confirm ${deleteCheck ? null : "hidden"}`} onClick={confirmedDelete}>
           <div className="textbox">
            <h3>Delete</h3>
           </div>
         </button>
 
-        <button className={`delete-cancel ${deleteCheck ? null : "hidden"}`} onClick={deleteButtonHandler}>
+        <button className={`delete-cancel ${deleteCheck ? null : "hidden"}`} onClick={deleteModeToggle}>
           <div className="textbox">
-            <h1>cancel</h1>
+            <h3>cancel</h3>
           </div>
         </button>
 
