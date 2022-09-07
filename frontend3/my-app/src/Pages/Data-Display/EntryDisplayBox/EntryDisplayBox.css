@@ -1,0 +1,155 @@
+:root {
+    --my-color: rgb(77, 155, 243);
+    --box-height: 55px;
+    --text-size: 14px;
+    --button-text-size: 10px;
+    --margin-top-height:10px
+  }
+  
+  button:hover {
+    cursor: pointer;
+  }
+  
+  .display-entry-container-box {
+    background-color: rgb(0, 37, 80);
+    position: relative;
+    min-width: 300px;
+    left: 10%;
+    width: 80%;
+    height: 75px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    top: var(--margin-top-height);
+  }
+  
+  .big-habit-container-box {
+    background-color: rgb(0, 37, 80);
+    position: relative;
+    min-width: 300px;
+    left: 10%;
+    width: 80%;
+    height: 150px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+  
+  }
+  
+  .display-entry-container-box .date {
+    position: relative;
+    border: 0;
+    margin-top: var(--margin-top-height);
+    border-radius: 5px;
+    width: 40%;
+    height: var(--box-height);
+    /* background-color: rgb(0, 66, 141); */
+    color: var(--my-color);
+    font-size: var(--button-text-size);
+  }
+  
+  /* _______________________________ */
+  .entry-textbox {
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+  }
+  .entry-textbox h1 {
+    text-align: center;
+  }
+  .entry-textbox h3 {
+    padding: 0;
+    margin: 0;
+    margin: auto;
+  }
+
+    /* ____________________ */
+
+  .not-visible {
+    visibility: hidden;
+  }
+  
+  .display-entry-container-box .amount {
+    position: inline;
+  
+    border: 0;
+    left: 52.5%;
+    top: 10px;
+    border-radius: 5px;
+    width: 20%;
+    height: var(--box-height);
+
+    font-size: var(--button-text-size);
+    z-index: 10;
+  }
+  
+  .display-entry-container-box .edit {
+    position: inline;
+    border: 0;
+    left: 77.5%;
+    top: 10px;
+    border-radius: 5px;
+    width: 15%;
+    height: var(--box-height);
+    background-color: rgb(0, 66, 141);
+    font-size: var(--button-text-size);
+    z-index:10;
+    
+  }
+
+  .entry-display-margin-auto {
+    margin: auto;
+    margin-top: 10px;
+  }
+
+  .display-entry-container-box .delete {
+    position: inline;
+    border: 0;
+    left: 77.5%;
+    top: 10px;
+    border-radius: 5px;
+    width: 5%;
+    height: 30px;
+    background-color: hsla(0, 100%, 17%, 0.63);
+    font-size: var(--button-text-size);
+    z-index:10;
+    margin-top: 22.5px;
+  }
+
+  .display-entry-container-box .delete-confirm{
+    position: absolute;
+    border: 0;
+    left: 27.5%;
+    top: 75px;
+    width: 20%;
+    border-radius: 5px;
+    height: var(--box-height);
+    background-color: hsla(0, 100%, 17%, 0.63);
+    font-size: var(--button-text-size);
+    z-index:10;
+  
+  }
+
+  .display-entry-container-box .delete-cancel{
+    position: absolute;
+    border: 0;
+    left: 52.5%;
+    top: 75px;
+    border-radius: 5px;
+    width: 20%;
+    height: var(--box-height);
+    background-color: rgb(0, 66, 141);
+    font-size: var(--button-text-size);
+    outline: none;
+    z-index:1;
+  }
+

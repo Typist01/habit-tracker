@@ -52,7 +52,7 @@ export default function HabitDisplayBox(props) {
   }, [buttonPresses]);
 
   function customInputModeHandler(){
-    console.log(customInputMode);
+    // console.log(customInputMode);
     setCustomInputMode((v) => (!v));
 
   }
