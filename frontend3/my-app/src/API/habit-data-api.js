@@ -8,26 +8,30 @@ export async function getAllDataByHabit(habitID){
         process.env.REACT_APP_API_KEY +
         "&habitID=" +
         habitID)
-        console.log(path)
+        // console.log(path)
         const result = await axios.get(path);
         return result;
 }
-
+// REACT_APP_HABIT_BY_ID_API
 export async function getHabitByID(habitID){
-    console.log("The Id passed was this: " + habitID)
-    const path = (process.env.REACT_APP_HABIT_BY_ID_API +
+    // console.log("The Id passed was this: " + habitID)
+    const path2 = (process.env.REACT_APP_GETHABIT +
         "key=" +
         process.env.REACT_APP_API_KEY +
         "&habitID=" +
         habitID
         )
-        console.log("the path about to use is this:" + path)
         try{
-        const result = await axios.get(path);
+            // const config = {
+            //     method:"get",
+            //     url: path2,
+            //     responseType:"stream"
+            // }
+        const result = await axios.get(path2);
         // axios.get(path).then(res => return res)
         return result;
         } catch(error) {
-            console.log(path)
+            console.log(path2)
             console.log(error)
             return error;
         }

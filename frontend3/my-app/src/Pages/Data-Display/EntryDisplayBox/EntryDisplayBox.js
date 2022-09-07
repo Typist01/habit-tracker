@@ -4,6 +4,10 @@ import "./EntryDisplayBox.css";
 export default function EntryDisplayBox(props){
     const [deleteCheck, setDeleteCheck] = useState(false);
 
+    function deleteButtonHandler(){
+      setDeleteCheck((v) => (!v));
+      return;
+    }
 
 
     return (
@@ -31,7 +35,7 @@ export default function EntryDisplayBox(props){
           </div>
         </button>
 
-        <button className={"delete entry-display-margin-auto"}>
+        <button className={"delete entry-display-margin-auto"} onClick={deleteButtonHandler}>
           <div className="entry-textbox" style={{marginLeft:0 , marginRight:0}}>
             <h3>X</h3>
           </div>
@@ -39,11 +43,11 @@ export default function EntryDisplayBox(props){
 
         <button className={`delete-confirm ${deleteCheck ? null : "hidden"}`}>
           <div className="textbox">
-           <h1>Delete</h1>
+           <h3>Delete</h3>
           </div>
         </button>
 
-        <button className={`delete-cancel ${deleteCheck ? null : "hidden"}`}>
+        <button className={`delete-cancel ${deleteCheck ? null : "hidden"}`} onClick={deleteButtonHandler}>
           <div className="textbox">
             <h1>cancel</h1>
           </div>

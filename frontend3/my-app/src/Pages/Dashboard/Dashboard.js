@@ -30,8 +30,8 @@ export default function Dashboard() {
     <React.Fragment>
       {/* <div> */}
       <NewHabitBox />
-      {userHabits.map((element) => {
-        return <HabitDisplayBox key={element} text="text from dashboard" habit={element} />;
+      {userHabits.map((element, index) => {
+        return <HabitDisplayBox key={index} text="text from dashboard" habit={element} />;
       
       })}
       {/* </div> */}

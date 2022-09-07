@@ -128,12 +128,12 @@
   .display-entry-container-box .delete-confirm{
     position: absolute;
     border: 0;
-    left: 5%;
+    left: 27.5%;
     top: 75px;
-    width: 70%;
+    width: 20%;
     border-radius: 5px;
     height: var(--box-height);
-    background-color: rgb(0, 66, 141);
+    background-color: hsla(0, 100%, 17%, 0.63);
     font-size: var(--button-text-size);
     z-index:10;
   
@@ -142,7 +142,7 @@
   .display-entry-container-box .delete-cancel{
     position: absolute;
     border: 0;
-    left: 78.3%;
+    left: 52.5%;
     top: 75px;
     border-radius: 5px;
     width: 20%;
