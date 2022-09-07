@@ -1,6 +1,6 @@
 
 import "./DataDisplay.css"
-import { getAllDataByHabit, getHabitByID } from "../../API/habit-data-api";
+import { getAllDataByHabit, getHabitByID, deleteDataByID } from "../../API/habit-data-api";
 import React, { useEffect, useState } from "react";
 import {useParams} from "react-router-dom"
 import axios from "axios";
@@ -26,7 +26,9 @@ export default function DataDisplay(){
         
       }, []);
 
-    
+      function deleteHandler(id){
+        deleteDataByID(id); 
+      }
 
     return(
         <React.Fragment>
@@ -35,7 +37,7 @@ export default function DataDisplay(){
         Table function yet to be implemented...
         </div>
         <h1 style={{marginLeft:"10%"}}>Activity Data</h1>
-        {habitData.map((entry, index) => {return <EntryDisplayBox key={index} entry={entry} />})}
+        {habitData.map((entry, index) => {return <EntryDisplayBox key={index} entry={entry} onDelete={deleteHandler}/>})}
 
         </React.Fragment>
     )

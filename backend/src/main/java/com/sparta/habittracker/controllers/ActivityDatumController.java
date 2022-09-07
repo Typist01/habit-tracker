@@ -82,22 +82,23 @@ public class ActivityDatumController {
         }
     }
 
-    @DeleteMapping ("activityData/delete/{id}")
+    @DeleteMapping ("activityData/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity deleteActivityDataById(
             @RequestParam("key") Optional<String> apiKey,
-            @PathVariable Integer id){
+            @RequestParam("deleteID") Optional<String> id){
         if(apiKey.isPresent() && Authentication.successful(apiKey.get())){
-            ActivityDatum data = dataRepo.findById(id).get();
-            if (data == null){
-                return ResponseEntity.badRequest()
-                        .header("message", "")
-                        .body("That entry does not exist");
+            if(id != null){
+                ActivityDatum data = dataRepo.findById(Integer.parseInt(id.get())).get();
+                if (data != null){
+                    dataRepo.delete(data);
+                    return ResponseEntity.status(200)
+                            .header("message", "successfully deleted activity data")
+                            .body("success");
+                }
+                else return ResponseEntity.badRequest().body("Invalid ID, data not located");
             }
-            dataRepo.delete(data);
-            return ResponseEntity.status(200)
-                    .header("message", "successfully deleted activity data")
-                    .body("success");
+            else return ResponseEntity.badRequest().body("no habitID was received");
         } else{
             return ResponseEntity.status(403).body("api key invalid or not found");
         }

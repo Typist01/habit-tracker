@@ -37,8 +37,6 @@ public class UserHabitController {
 
     @GetMapping("/habits/id")
     public ResponseEntity getHabitById(@RequestParam("key") Optional<String> apiKey, @RequestParam Optional<String> habitID) {
-        System.out.println("The id provided is : "+habitID);
-        System.out.println("The key provided is :" +apiKey);
         if (apiKey.isPresent() && Authentication.successful(apiKey.get())) {
             if (habitID.isPresent()){
                 Integer id = Integer.parseInt(habitID.get());

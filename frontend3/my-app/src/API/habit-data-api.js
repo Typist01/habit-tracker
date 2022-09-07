@@ -36,3 +36,27 @@ export async function getHabitByID(habitID){
             return error;
         }
 }
+
+export async function deleteDataByID(dataID){
+    console.log("The Id passed was this: " + dataID)
+    const path3 = (process.env.REACT_APP_DELETEDATA +
+        "key=" +
+        process.env.REACT_APP_API_KEY +
+        "&deleteID=" +
+        dataID
+        )
+        try{
+            // const config = {
+            //     method:"get",
+            //     url: path2,
+            //     responseType:"stream"
+            // }
+        const result = await axios.delete(path3);
+        // axios.get(path).then(res => return res)
+        return result;
+        } catch(error) {
+            console.log(path3)
+            console.log(error)
+            return error;
+        }
+}

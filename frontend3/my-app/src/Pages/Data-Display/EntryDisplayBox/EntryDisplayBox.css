@@ -153,3 +153,9 @@
     z-index:1;
   }
 
+  .entry-hidden{
+    display: none;
+  }
+
+
+
