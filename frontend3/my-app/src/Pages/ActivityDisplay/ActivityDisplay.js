@@ -19,10 +19,16 @@ export default function ActivityDisplay() {
     <React.Fragment>
       <h1>Hi, welcome from activity display!</h1>
       <form className="activity-display">
-        <label className="amount">
-          Amount recorded
-          <input type="number" />
-        </label>
+        <div className="activity-details-heading">
+          <label className="amount">
+            Amount recorded
+            <input type="number" />
+          </label>
+          <label className="units">
+            units
+            <input type="number" />
+          </label>
+        </div>
         <label className="time">
           Time recorded
           <div className="block">
