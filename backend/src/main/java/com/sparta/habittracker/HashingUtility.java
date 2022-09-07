@@ -4,15 +4,13 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class HashingUtility {
 
-    public static String hashPassword(String password){
+    public static String hash(String password){
         return BCrypt.hashpw(password, BCrypt.gensalt(11));
     }
 
-    public static boolean checkPassword(String password, String hash){
+    public static boolean checkHash(String password, String hash){
         return BCrypt.checkpw(password, hash);
-
     }
-
 
     //    private static final UpdatableBCrypt bcrypt = new UpdatableBCrypt(11);
 //

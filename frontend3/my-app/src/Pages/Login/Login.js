@@ -100,6 +100,7 @@ export default function Login() {
           <h2>Password</h2>
           <input
             disabled={disableInputs}
+            type="password"
             // className={magesticMode ? "magestic-mode" : null}
             value={password}
             onChange={(e) => {
@@ -108,7 +109,6 @@ export default function Login() {
             }}
           ></input>
           <br />
-
           <button
             type="submit"
             // className={magesticMode ? "magestic-mode" : null}
