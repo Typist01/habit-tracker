@@ -9,6 +9,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import DataDisplay from "./Pages/Data-Display/DataDisplay";
 import { loginUser } from "./API/authentication";
 import NewHabitPage from "./Pages/Dashboard/NewHabitBox/Components/NewHabitPage/NewHabitPage";
+import ActivityDisplay from "./Pages/ActivityDisplay/ActivityDisplay";
 
 export const AuthContext = createContext();
 
@@ -64,6 +65,7 @@ export default function App() {
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="add-new-habit" element={<NewHabitPage />} />
+          <Route path="activity-display" element={<ActivityDisplay />} />
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>
