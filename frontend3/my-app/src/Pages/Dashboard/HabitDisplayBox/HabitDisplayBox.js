@@ -11,7 +11,14 @@ export default function HabitDisplayBox(props) {
   const [amount, setAmount] = useState(0);
   const [startAnimation, setStartAnimation] = useState(false);
   const [stopAnimation, setStopAnimation] = useState(false);
+
   const [customInputMode, setCustomInputMode] = useState(false);
+  //const [customButtonPresses, setCustomButtonPresses] = useState(0);
+  const [startCustomAnimation, setStartCustomAnimation] = useState(false);
+  //const [stopCustomAnimation, setStopCustomAnimation] = useState(false);
+
+
+
   function defaultIncrementHandler() {
     setButtonPresses((v) => (v += 1));
   }
@@ -51,10 +58,33 @@ export default function HabitDisplayBox(props) {
     };
   }, [buttonPresses]);
 
+  // CUSTOM BUTTON 
+  // useEffect(() => {
+  //   if (customButtonPresses === 0) {
+  //     return;
+  //   }
+  //   if (customButtonPresses === 1) {
+  //     setStopCustomAnimation(false);
+  //     setStartCustomAnimation(true);
+  //   }
+  //   const timerIdentity = setTimeout(() => {
+  //     setStopCustomAnimation(true);
+  //     setStartCustomAnimation(false);
+  //     setCustomButtonPresses(0);
+  //   }, 2000);
+
+  //   return () => {
+  //     clearTimeout(timerIdentity);
+  //   };
+  
+  // }, [customButtonPresses]);
+
   function customInputModeHandler(){
     console.log(customInputMode);
     setCustomInputMode((v) => (!v));
-
+    setStartCustomAnimation(true);
+    setTimeout(() => setStartCustomAnimation(false), 500);
+    
   }
 
   const [customInputValue, setCustomInputValue] = useState("");
@@ -107,7 +137,9 @@ export default function HabitDisplayBox(props) {
         className={`display-habit-container-box 
         ${startAnimation ? "breathe-in" : null} 
         ${stopAnimation ? "breathe-out" : null}
-        ${customInputMode ? "big-habit-container-box": null}`}
+        ${customInputMode ? "big-habit-container-box ": null}
+        `}
+      //  ${stopCustomAnimation ? "breathe-out" : null}
       >
         
         <div className="habit habit-display-margin-auto">
@@ -153,8 +185,9 @@ export default function HabitDisplayBox(props) {
           </div>
         )}
         {/* </button> */}
-        <button className={"custom-add habit-display-margin-auto "} onClick={customInputModeHandler}>
-          <div className="textbox">
+        <button className={`custom-add habit-display-margin-auto ${startCustomAnimation ? `customAnimation` : ""}`} 
+          onClick={customInputModeHandler}>
+          <div className={`textbox`}>
             {/* todo box appears to enter custom number MUST be a number */}
             <h1>Custom</h1>
           </div>
