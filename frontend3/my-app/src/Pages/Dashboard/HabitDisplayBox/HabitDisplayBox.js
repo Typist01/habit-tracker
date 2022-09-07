@@ -80,7 +80,7 @@ export default function HabitDisplayBox(props) {
   // }, [customButtonPresses]);
 
   function customInputModeHandler(){
-    console.log(customInputMode);
+    // console.log(customInputMode);
     setCustomInputMode((v) => (!v));
     setStartCustomAnimation(true);
     setTimeout(() => setStartCustomAnimation(false), 500);

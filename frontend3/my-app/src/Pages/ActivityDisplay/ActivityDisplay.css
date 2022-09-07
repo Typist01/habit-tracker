@@ -1,0 +1,65 @@
+/** @format */
+
+.block {
+  display: block;
+}
+.activity-display {
+  margin: 3% 7%;
+}
+
+.activity-display label {
+  display: block;
+  margin-bottom: 10px;
+}
+.activity-display input {
+  border-radius: 4px;
+}
+.activity-display input:focus {
+  outline: none;
+}
+
+.activity-display inputarea {
+  border-radius: 4px;
+}
+
+.activity-display .amount input {
+  display: block;
+  height: 70px;
+  width: 150px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.activity-display .time input {
+  padding: 5px;
+  font-size: 18px;
+  width: 80px;
+  height: 30px;
+}
+.activity-display .time .second {
+  width: 150px;
+}
+
+.comment textarea {
+  display: block;
+  height: 200px;
+  width: 300px;
+  border-radius: 4px;
+}
+
+.activity-details-heading {
+  display: block;
+}
+.activity-details-heading .amount {
+  display: inline-block;
+}
+.activity-details-heading .units {
+  display: inline-block;
+}
+.activity-details-heading .units input {
+  display: block;
+}
+
+.units label {
+  margin-left: 10px;
+}

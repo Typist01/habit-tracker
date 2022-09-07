@@ -75,7 +75,7 @@ public class UserController {
                         .body("User could not be added, user already exists (check username or email)");
             }
             user.setId(("" + user.getUsername() + System.nanoTime()).hashCode());
-            user.setPasswordToken(HashingUtility.hashPassword(user.getPasswordToken()));
+            user.setPasswordToken(HashingUtility.hash(user.getPasswordToken()));
             repo.save(user);
             return ResponseEntity.ok().header("response", "success")
                     .body("User add successful");
@@ -90,7 +90,7 @@ public class UserController {
 
             if (repo.existsByUsername(username)) {
                 User user = repo.findUserByUsername(username);
-                if (HashingUtility.checkPassword(password, user.getPasswordToken())) {
+                if (HashingUtility.checkHash(password, user.getPasswordToken())) {
                     return ResponseEntity.accepted().body(user.getId().toString());
                 } else {
                     return ResponseEntity.status(403).body("fail");
