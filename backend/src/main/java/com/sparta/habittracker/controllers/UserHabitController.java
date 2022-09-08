@@ -2,10 +2,7 @@ package com.sparta.habittracker.controllers;
 
 import com.sparta.habittracker.Authentication;
 import com.sparta.habittracker.entities.*;
-import com.sparta.habittracker.repositories.ActivityRepository;
-import com.sparta.habittracker.repositories.ActivityUnitRepository;
-import com.sparta.habittracker.repositories.UserHabitRepository;
-import com.sparta.habittracker.repositories.UserRepository;
+import com.sparta.habittracker.repositories.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -34,6 +31,9 @@ public class UserHabitController {
     ActivityUnitRepository unitRepo;
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    ActivityDatumRepository dataRepo;
 
     @GetMapping("/habits/id")
     public ResponseEntity getHabitById(@RequestParam("key") Optional<String> apiKey, @RequestParam Optional<String> habitID) {
@@ -90,7 +90,6 @@ public class UserHabitController {
 //        System.out.println(apiKey.isPresent() && Authentication.successful(apiKey.get()));
         if (apiKey.isPresent() && Authentication.successful(apiKey.get())) {
             try {
-
                 JSONObject json = (JSONObject) parser.parse(request);
                 if (json.get("id") == null) {
                     json.put("id", (System.nanoTime() + String.valueOf(Math.abs((Integer.parseInt((String.valueOf(json.get("user")))))))).hashCode());
@@ -169,15 +168,33 @@ public class UserHabitController {
     }
 
 
-    @DeleteMapping("habits/delete/{id}")
+    @DeleteMapping("habits/delete")
     public ResponseEntity<String> deleteUserHabitById(
             @RequestParam("key") Optional<String> apiKey,
-            @PathVariable Integer id) {
+            @RequestParam("deleteID") Optional<String> deleteID) {
         if (apiKey.isPresent() && Authentication.successful(apiKey.get())) {
-            UserHabit habit = repo.findById(id)
-                    .orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST));
-            repo.delete(habit);
-            return ResponseEntity.ok().body("Deleted habit successfully");
+            UserHabit habit = repo.findById(Integer.parseInt(deleteID.get())).get();
+            if (habit != null){
+                List<ActivityDatum> dataToDelete = dataRepo.findAllByHabit(habit);
+                for (ActivityDatum data : dataToDelete){
+                    dataRepo.delete(data);
+                }
+                repo.delete(habit);
+                System.out.println("TEST OUTPUT " + habit);
+                System.out.println(repo.findAllByActivityName(habit.getActivityName()));
+                System.out.println(repo.findAllByUnitType(habit.getUnitType()));
+                if (repo.findAllByActivityName(habit.getActivityName()).size()<=1){
+                    activityRepo.delete(habit.getActivityName());
+                }
+                if (repo.findAllByUnitType(habit.getUnitType()).size()<=1){
+                    unitRepo.delete(habit.getUnitType());
+                }
+
+                return ResponseEntity.status(200)
+                        .header("message", "successfully deleted habit")
+                        .body("success");
+            }
+            else return ResponseEntity.badRequest().body("Invalid ID, habit not located");
         } else {
             return ResponseEntity.badRequest().body("Invalid key or not found");
         }

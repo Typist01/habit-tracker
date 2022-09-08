@@ -22,7 +22,7 @@ export default function EntryDisplayBox(props) {
     <React.Fragment>
       <div
         className={`display-entry-container-box 
-        ${deleteCheck ? "big-habit-container-box" : null}
+        ${deleteCheck ? "big-entry-container-box" : null}
         ${isDeleted ? "entry-hidden" : null}`}
       >
         <div className="date entry-display-margin-auto">
