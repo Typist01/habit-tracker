@@ -27,7 +27,6 @@ export default function Dashboard() {
   return (
     <React.Fragment>
       {/* <div> */}
-      <NavBar />
       <NewHabitBox />
       {userHabits.map((element, index) => {
         return (
