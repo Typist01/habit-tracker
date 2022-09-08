@@ -1,19 +1,39 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getActivityById } from "../../API/activity-data-api";
+import { getHabitByID } from "../../API/habit-data-api";
 import "./ActivityDisplay.css";
 
 export default function ActivityDisplay() {
   const [userDetails, setUserDetails] = useState({
     sliderVal: 50,
   });
-
+  const { id } = useParams();
+  const [activity, setActivity] = useState({});
+  const [habit, setHabit] = useState({});
   function setSlider(e) {
     const val = e.target.value;
     setUserDetails({
       sliderVal: val,
     });
   }
+
+  useEffect(() => {
+    console.log("use effect running and sending id: " + id);
+    getActivityById(id).then((res) => {
+      console.log(res.data);
+      setActivity(res.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    getHabitByID(activity.habit.id).then((res) => {
+      setHabit(res.data);
+      console.log("habit is " + habit);
+    });
+  }, [activity]);
 
   return (
     <React.Fragment>
@@ -22,7 +42,9 @@ export default function ActivityDisplay() {
         <div className="activity-details-heading">
           <label className="amount">
             Amount recorded
-            <input type="number" />
+            {activity.amountDone && (
+              <input type="number" value={activity.amountDone} />
+            )}
           </label>
           <label className="units">
             units

@@ -2,7 +2,7 @@
 // import logo from './logo.svg';
 import "./App.css";
 import Login from "./Pages/Login/Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Signup from "./Pages/Signup/Signup";
 import { useEffect, useState, useContext, createContext } from "react";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -10,8 +10,8 @@ import DataDisplay from "./Pages/Data-Display/DataDisplay";
 import { loginUser } from "./API/authentication";
 import NewHabitPage from "./Pages/Dashboard/NewHabitBox/Components/NewHabitPage/NewHabitPage";
 import ActivityDisplay from "./Pages/ActivityDisplay/ActivityDisplay";
-export const AuthContext = createContext();
 
+export const AuthContext = createContext();
 
 export default function App() {
   async function loginHandler(username, password) {
@@ -55,7 +55,10 @@ export default function App() {
     >
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/"
+            element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
+          />
           <Route path="/login" element={<Login />} />
           <Route
             path="/signup"
@@ -63,10 +66,24 @@ export default function App() {
               <Signup isLoggedIn={isLoggedIn} handleLogin={loginHandler} />
             }
           />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="add-new-habit" element={<NewHabitPage />} />
-          <Route path="activity-details/:id" element={<ActivityDisplay />} />
-          <Route path="data-display/:habitID" element={<DataDisplay />} />
+          <Route
+            path="/dashboard"
+            element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="add-new-habit"
+            element={isLoggedIn ? <NewHabitPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="activity-details/:id"
+            element={
+              isLoggedIn ? <ActivityDisplay /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="data-display/:habitID"
+            element={isLoggedIn ? <DataDisplay /> : <Navigate to="/login" />}
+          />
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>
