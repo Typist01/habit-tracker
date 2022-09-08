@@ -44,7 +44,6 @@ export default function App() {
     localStorage.removeItem("userId");
     setIsLoggedIn(false);
   }
-
   return (
     <AuthContext.Provider
       value={{
