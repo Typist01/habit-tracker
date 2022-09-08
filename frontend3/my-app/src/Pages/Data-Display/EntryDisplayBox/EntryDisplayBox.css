@@ -24,7 +24,7 @@
     top: var(--margin-top-height);
   }
   
-  .big-habit-container-box {
+  .big-entry-container-box {
     background-color: rgb(0, 37, 80);
     position: relative;
     min-width: 300px;

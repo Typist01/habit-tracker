@@ -1,0 +1,37 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 4px 10%;
+    overflow: hidden;
+    background-color: #333; 
+    
+  }
+  
+  li {
+    float: left;
+    border-radius: 7px;
+  }
+  
+  .li-logout {
+    float:right;
+    background-color: whitesmoke;
+    border-radius: 7px;
+  }
+  .li-logout a {
+    color: black;
+  }
+
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    border-radius: 6px;
+    background-color: #111;
+  }

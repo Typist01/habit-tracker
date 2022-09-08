@@ -10,6 +10,7 @@ import DataDisplay from "./Pages/Data-Display/DataDisplay";
 import { loginUser } from "./API/authentication";
 import NewHabitPage from "./Pages/Dashboard/NewHabitBox/Components/NewHabitPage/NewHabitPage";
 import ActivityDisplay from "./Pages/ActivityDisplay/ActivityDisplay";
+import NavBar from "./Components/NavBar/NavBar";
 
 export const AuthContext = createContext();
 
@@ -44,7 +45,6 @@ export default function App() {
     localStorage.removeItem("userId");
     setIsLoggedIn(false);
   }
-
   return (
     <AuthContext.Provider
       value={{
@@ -53,6 +53,7 @@ export default function App() {
         handleLogout: logoutHandler,
       }}
     >
+      <NavBar/>
       <BrowserRouter>
         <Routes>
           <Route
