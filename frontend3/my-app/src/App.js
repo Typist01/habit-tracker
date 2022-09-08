@@ -6,10 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./Pages/Signup/Signup";
 import { useEffect, useState, useContext, createContext } from "react";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import NewActivityPage from "./Pages/Dashboard/NewActivityPage/NewActivityPage.js";
 import DataDisplay from "./Pages/Data-Display/DataDisplay";
 import { loginUser } from "./API/authentication";
-import NewHabitPage from "./Pages/Dashboard/NewHabitBox/Components/NewHabitPage/NewHabitPage";
-import ActivityDisplay from "./Pages/ActivityDisplay/ActivityDisplay";
 
 export const AuthContext = createContext();
 
@@ -17,10 +16,7 @@ export default function App() {
   async function loginHandler(username, password) {
     const result = await loginUser(username, password);
     if (result.result == "success") {
-      console.log(result.response);
-      console.log(result.response.data);
       localStorage.setItem("username", username);
-      localStorage.setItem("userId", result.response.data);
       setIsLoggedIn(true);
       return;
     } else {
@@ -30,8 +26,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const storageState = localStorage.getItem("username");
-    const userId = localStorage.getItem("userId");
-    if (storageState == null || userId == null) {
+    if (storageState == null) {
       setIsLoggedIn(false);
     } else {
       setIsLoggedIn(true);
@@ -41,7 +36,6 @@ export default function App() {
   function logoutHandler() {
     // console.log("logout handler")
     localStorage.removeItem("username");
-    localStorage.removeItem("userId");
     setIsLoggedIn(false);
   }
 
@@ -64,8 +58,10 @@ export default function App() {
             }
           />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="add-new-habit" element={<NewHabitPage />} />
-          <Route path="activity-display" element={<ActivityDisplay />} />
+          <Route path="/new-activity" element={<NewActivityPage />} />
+          <Route path="/data-display" element={<DataDisplay />} />
+          <Route path="/data-display/:habitID" element={<DataDisplay />} />
+
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>
