@@ -45,6 +45,14 @@ export default function App() {
     localStorage.removeItem("userId");
     setIsLoggedIn(false);
   }
+  function appIsLoggedIn() {
+    if (
+      localStorage.getItem("username") == null &&
+      localStorage.getItem("userId") == null
+    ) {
+      return false;
+    } else return true;
+  }
   return (
     <AuthContext.Provider
       value={{
@@ -53,12 +61,12 @@ export default function App() {
         handleLogout: logoutHandler,
       }}
     >
-      <NavBar/>
+      <NavBar />
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
-            element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
+            element={appIsLoggedIn() ? <Dashboard /> : <Navigate to="/login" />}
           />
           <Route path="/login" element={<Login />} />
           <Route
@@ -69,21 +77,25 @@ export default function App() {
           />
           <Route
             path="/dashboard"
-            element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
+            element={appIsLoggedIn() ? <Dashboard /> : <Navigate to="/login" />}
           />
           <Route
             path="add-new-habit"
-            element={isLoggedIn ? <NewHabitPage /> : <Navigate to="/login" />}
+            element={
+              appIsLoggedIn() ? <NewHabitPage /> : <Navigate to="/login" />
+            }
           />
           <Route
             path="activity-details/:id"
             element={
-              isLoggedIn ? <ActivityDisplay /> : <Navigate to="/login" />
+              appIsLoggedIn() ? <ActivityDisplay /> : <Navigate to="/login" />
             }
           />
           <Route
             path="data-display/:habitID"
-            element={isLoggedIn ? <DataDisplay /> : <Navigate to="/login" />}
+            element={
+              appIsLoggedIn() ? <DataDisplay /> : <Navigate to="/login" />
+            }
           />
         </Routes>
       </BrowserRouter>
