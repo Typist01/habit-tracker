@@ -14,6 +14,7 @@ import NavBar from "./Components/NavBar/NavBar";
 
 export const AuthContext = createContext();
 
+
 export default function App() {
   async function loginHandler(username, password) {
     const result = await loginUser(username, password);
@@ -45,7 +46,6 @@ export default function App() {
     localStorage.removeItem("userId");
     setIsLoggedIn(false);
   }
-
   return (
     <AuthContext.Provider
       value={{

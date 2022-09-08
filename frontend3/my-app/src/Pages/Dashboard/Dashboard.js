@@ -1,13 +1,15 @@
 /** @format */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { getHabitsByUser } from "../../API/dashboard-api";
+import { AuthContext } from "../../App";
 import NavBar from "../../Components/NavBar/NavBar";
 import "./Dashboard.css";
 import HabitDisplayBox from "./HabitDisplayBox/HabitDisplayBox";
 import NewHabitBox from "./NewHabitBox/NewHabitBox";
 
 export default function Dashboard() {
+  const ctx = useContext(AuthContext);
   const [userHabits, setUserHabits] = useState([]);
   const username = localStorage.getItem("username");
   var habit_array;
@@ -24,6 +26,7 @@ export default function Dashboard() {
   useEffect(() => {
     document.body.style = "background:#1E1E1E";
   }, []);
+  
   return (
     <React.Fragment>
       {/* <div> */}
