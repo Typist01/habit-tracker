@@ -58,10 +58,16 @@ export default function App() {
             }
           />
           <Route path="/dashboard" element={<Dashboard />} />
+<<<<<<< HEAD
           <Route path="/new-activity" element={<NewActivityPage />} />
           <Route path="/data-display" element={<DataDisplay />} />
           <Route path="/data-display/:habitID" element={<DataDisplay />} />
 
+=======
+          <Route path="add-new-habit" element={<NewHabitPage />} />
+          <Route path="activity-details/:id" element={<ActivityDisplay />} />
+          <Route path="data-display/:habitID" element={<DataDisplay />} />
+>>>>>>> feca7b92c60ef0b04ff294dbde1f4e4a67f8211f
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>

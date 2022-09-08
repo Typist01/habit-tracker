@@ -22,7 +22,6 @@
   border-radius: 4px;
 }
 
-
 .activity-display .amount input {
   display: block;
   height: 70px;
@@ -46,4 +45,21 @@
   height: 200px;
   width: 300px;
   border-radius: 4px;
+}
+
+.activity-details-heading {
+  display: block;
+}
+.activity-details-heading .amount {
+  display: inline-block;
+}
+.activity-details-heading .units {
+  display: inline-block;
+}
+.activity-details-heading .units input {
+  display: block;
+}
+
+.units label {
+  margin-left: 10px;
 }
