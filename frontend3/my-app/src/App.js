@@ -2,9 +2,15 @@
 // import logo from './logo.svg';
 import "./App.css";
 import Login from "./Pages/Login/Login";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import Signup from "./Pages/Signup/Signup";
-import { useEffect, useState, useContext, createContext } from "react";
+import { useEffect, useState, createContext } from "react";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DataDisplay from "./Pages/Data-Display/DataDisplay";
 import { loginUser } from "./API/authentication";
@@ -18,11 +24,12 @@ export default function App() {
   async function loginHandler(username, password) {
     const result = await loginUser(username, password);
     if (result.result == "success") {
-      console.log(result.response);
-      console.log(result.response.data);
+      // console.log(result.response);
+      // console.log(result.response.data);
       localStorage.setItem("username", username);
       localStorage.setItem("userId", result.response.data);
       setIsLoggedIn(true);
+      window.location.href = "/";
       return;
     } else {
       return;

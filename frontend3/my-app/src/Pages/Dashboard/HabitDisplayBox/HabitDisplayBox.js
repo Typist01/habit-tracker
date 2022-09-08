@@ -4,7 +4,7 @@ import { getValue } from "@testing-library/user-event/dist/utils";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./HabitDisplayBox.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function HabitDisplayBox(props) {
   const [buttonPresses, setButtonPresses] = useState(0);
@@ -16,8 +16,6 @@ export default function HabitDisplayBox(props) {
   //const [customButtonPresses, setCustomButtonPresses] = useState(0);
   const [startCustomAnimation, setStartCustomAnimation] = useState(false);
   //const [stopCustomAnimation, setStopCustomAnimation] = useState(false);
-
-
 
   function defaultIncrementHandler() {
     setButtonPresses((v) => (v += 1));
@@ -58,7 +56,7 @@ export default function HabitDisplayBox(props) {
     };
   }, [buttonPresses]);
 
-  // CUSTOM BUTTON 
+  // CUSTOM BUTTON
   // useEffect(() => {
   //   if (customButtonPresses === 0) {
   //     return;
@@ -76,15 +74,14 @@ export default function HabitDisplayBox(props) {
   //   return () => {
   //     clearTimeout(timerIdentity);
   //   };
-  
+
   // }, [customButtonPresses]);
 
-  function customInputModeHandler(){
+  function customInputModeHandler() {
     // console.log(customInputMode);
-    setCustomInputMode((v) => (!v));
+    setCustomInputMode((v) => !v);
     setStartCustomAnimation(true);
     setTimeout(() => setStartCustomAnimation(false), 500);
-    
   }
 
   const [customInputValue, setCustomInputValue] = useState("");
@@ -93,11 +90,11 @@ export default function HabitDisplayBox(props) {
   //   console.log(customInputValue)
   // }, [customInputValue])
 
-  function handleCustomInputChange(e){
+  function handleCustomInputChange(e) {
     const val = e.target.value;
     setCustomInputValue(val);
 
-    return
+    return;
     // console.log (val)
     // console.log(typeof val);
     // if(typeof (val) === 'number'){
@@ -109,8 +106,9 @@ export default function HabitDisplayBox(props) {
     // return;
   }
 
-  async function customInputSubmitHandler(e){
+  async function customInputSubmitHandler(e) {
     e.preventDefault();
+    console.log(props.habit);
     const postBody = {
       habit_id: props.habit.id,
       date_recorded: null,
@@ -127,31 +125,30 @@ export default function HabitDisplayBox(props) {
     return 0;
   }
 
-  const pathName="/data-display"
+  const pathName = "/data-display";
   return (
     <React.Fragment>
       {/* <h1>Adding {amount}</h1> */}
       {/* {modalShown?<ModalComponent></ModalComponent>:null} */}
-      
+
       <div
         className={`display-habit-container-box 
         ${startAnimation ? "breathe-in" : null} 
         ${stopAnimation ? "breathe-out" : null}
-        ${customInputMode ? "big-habit-container-box ": null}
+        ${customInputMode ? "big-habit-container-box " : null}
         `}
-      //  ${stopCustomAnimation ? "breathe-out" : null}
+        //  ${stopCustomAnimation ? "breathe-out" : null}
       >
-        
         <div className="habit habit-display-margin-auto">
-        <Link to={pathName+"/"+props.habit.id}>
-          <div className="habit-name-box">
-            {/* todo change props  */}
-            <h3>{props.habit.name}</h3>
-            <p className={`${amount > 0 ? null : "not-visible"}`}>
-              {"Adding " + amount}
-            </p>
-          </div>
-        </Link>
+          <Link to={pathName + "/" + props.habit.id}>
+            <div className="habit-name-box">
+              {/* todo change props  */}
+              <h3>{props.habit.name}</h3>
+              <p className={`${amount > 0 ? null : "not-visible"}`}>
+                {"Adding " + amount + " " + props.habit.unitType.id}
+              </p>
+            </div>
+          </Link>
         </div>
         {/* <button className="generic-add habit-display-margin-auto"> */}
         {props.habit.defaultIncrement ? (
@@ -169,7 +166,10 @@ export default function HabitDisplayBox(props) {
             </div>
           </button>
         ) : (
-          <div className="generic-add habit-display-margin-auto" style={{ zIndex: "-1" }}>
+          <div
+            className="generic-add habit-display-margin-auto"
+            style={{ zIndex: "-1" }}
+          >
             {/* <input
                 style={{
                   lineHeight: "40px",
@@ -185,28 +185,48 @@ export default function HabitDisplayBox(props) {
           </div>
         )}
         {/* </button> */}
-        <button className={`custom-add habit-display-margin-auto ${startCustomAnimation ? `customAnimation` : ""}`} 
-          onClick={customInputModeHandler}>
+        <button
+          className={`custom-add habit-display-margin-auto ${
+            startCustomAnimation ? `customAnimation` : ""
+          }`}
+          onClick={customInputModeHandler}
+        >
           <div className={`textbox`}>
             {/* todo box appears to enter custom number MUST be a number */}
             <h1>Custom</h1>
           </div>
         </button>
 
-        <form className="custom-form" method="post" onSubmit={customInputSubmitHandler}>
-        <div className={`custom-input-entry ${customInputMode ? null : "hidden"}`}>
-          <div className="textbox">
-          <input type="number" value={customInputValue} onChange={handleCustomInputChange}  placeholder="custom number goes here">
-          </input>
+        <form
+          className="custom-form"
+          method="post"
+          onSubmit={customInputSubmitHandler}
+        >
+          <div
+            className={`custom-input-entry ${
+              customInputMode ? null : "hidden"
+            }`}
+          >
+            <div className="textbox">
+              <input
+                type="number"
+                value={customInputValue}
+                onChange={handleCustomInputChange}
+                placeholder="custom number goes here"
+              ></input>
+            </div>
           </div>
-        </div>
-        <button type="submit" className={`custom-input-submit ${customInputMode ? null : "hidden"}`}>
-          <div className="textbox">
-            <h1>Submit</h1>
-          </div>
-        </button>
+          <button
+            type="submit"
+            className={`custom-input-submit ${
+              customInputMode ? null : "hidden"
+            }`}
+          >
+            <div className="textbox">
+              <h1>Submit</h1>
+            </div>
+          </button>
         </form>
-        
       </div>
       <div style={{ position: "relative", zIndex: "1" }}> </div>
     </React.Fragment>

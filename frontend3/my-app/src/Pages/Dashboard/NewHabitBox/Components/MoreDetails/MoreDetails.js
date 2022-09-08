@@ -61,7 +61,6 @@ export default function MoreDetails(props) {
 
   return (
     <React.Fragment>
-      <h1> Hi from more details!</h1>
       <form className="more-details" onSubmit={submitHandler}>
         <label>
           Habit name

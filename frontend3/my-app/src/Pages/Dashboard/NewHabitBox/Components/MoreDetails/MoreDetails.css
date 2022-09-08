@@ -10,6 +10,7 @@
   padding: 20px;
   border-radius: 8px;
   background-color: var(--bg-blue);
+  margin-top: 3%;
 }
 .more-details label {
   display: block;

@@ -15,11 +15,12 @@ export default function NewHabitBox() {
   function submitActivity() {
     window.alert(activity);
   }
-  
+
   const buttonStyle = {
     color: "white",
     backgroundColor: "#00428D",
     width: "400px",
+    border: "none",
     borderRadius: "8px",
     height: "50px",
     margin: "20px auto",
@@ -27,7 +28,7 @@ export default function NewHabitBox() {
 
   return (
     <React.Fragment>
-      <div style={{ display: "flex" }}>
+      <div className="new-habit-container">
         <a style={{ margin: "auto" }}>
           <Link to="/add-new-habit">
             <button style={buttonStyle}> Add a new habit... </button>

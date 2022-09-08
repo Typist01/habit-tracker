@@ -73,3 +73,22 @@
 .magestic-mode {
   background-color: magenta;
 }
+
+.logged-in {
+  margin: 3% 7%;
+}
+
+.logged-in h1 {
+  text-align: center;
+}
+.logged-in p {
+  margin-top: 7%;
+  color: skyblue;
+}
+.logged-in a {
+  text-decoration: none;
+}
+.logged-in button {
+  width: 80px;
+  height: 40px;
+}

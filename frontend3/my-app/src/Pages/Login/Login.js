@@ -68,11 +68,13 @@ export default function Login() {
   if (ctx.isLoggedIn) {
     return (
       <React.Fragment>
-        <h1> You are logged in </h1>
-        <Link to="/">
-          <p> click here to return to dashboard </p>
-        </Link>
-        <button onClick={ctx.handleLogout}>Logout</button>
+        <div className="logged-in">
+          <h1> You are logged in </h1>
+          <Link to="/">
+            <p> click here to return to dashboard </p>
+          </Link>
+          <button onClick={ctx.handleLogout}>Logout</button>
+        </div>
       </React.Fragment>
     );
   }

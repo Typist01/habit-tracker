@@ -1,5 +1,7 @@
 /** @format */
 
-.newHabitContainer {
-  margin: auto;
+.new-habit-container {
+  display: flex;
+  border: none;
+  outline: none;
 }

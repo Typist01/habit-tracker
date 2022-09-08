@@ -10,6 +10,7 @@
   padding: 20px;
   border-radius: 8px;
   background-color: var(--bg-blue);
+  margin-top: 3%;
 }
 .create-habit label {
   display: block;
@@ -42,5 +43,5 @@
   color: white;
 }
 .create-habit button {
-    background-color: var(--fg-blue);
+  background-color: var(--fg-blue);
 }
