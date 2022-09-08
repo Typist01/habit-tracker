@@ -10,8 +10,8 @@ import DataDisplay from "./Pages/Data-Display/DataDisplay";
 import { loginUser } from "./API/authentication";
 import NewHabitPage from "./Pages/Dashboard/NewHabitBox/Components/NewHabitPage/NewHabitPage";
 import ActivityDisplay from "./Pages/ActivityDisplay/ActivityDisplay";
-
 export const AuthContext = createContext();
+
 
 export default function App() {
   async function loginHandler(username, password) {

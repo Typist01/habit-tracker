@@ -53,6 +53,7 @@ export default function Login() {
     } else if (name == "logout") {
       ctx.handleLogout();
     }
+    setDisableInputs(false);
     console.log(ctx.isLoggedIn);
   }
 
@@ -121,9 +122,17 @@ export default function Login() {
         </div>
         {/* </div> */}
       </form>
-      <form name="logout" onSubmit={handleSubmit}>
-        <button type="submit">Logout</button>
-      </form>
+      <p style={{ marginTop: "7%", marginLeft: "3%" }}>
+        Don't have an account?{" "}
+        <Link to="/signup" style={{ color: "skyblue" }}>
+          Sign up
+        </Link>
+      </p>
+      {ctx.isLoggedIn && (
+        <form name="logout" onSubmit={handleSubmit}>
+          <button type="submit">Logout</button>
+        </form>
+      )}
     </React.Fragment>
   );
 }
