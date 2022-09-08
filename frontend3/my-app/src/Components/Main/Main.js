@@ -33,6 +33,7 @@ export default function Main(props) {
   const [username, setUserName] = useState("");
   return (
     <div>
+      
       <h1 className={`heading ${isHidden ? "hidden" : null}`}>{myText}</h1>
       <h1
         id="title"
