@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getHabitsByUser } from "../../API/dashboard-api";
+import NavBar from "../../Components/NavBar/NavBar";
 import "./Dashboard.css";
 import HabitDisplayBox from "./HabitDisplayBox/HabitDisplayBox";
 import NewHabitBox from "./NewHabitBox/NewHabitBox";
@@ -26,6 +27,7 @@ export default function Dashboard() {
   return (
     <React.Fragment>
       {/* <div> */}
+      <NavBar />
       <NewHabitBox />
       {userHabits.map((element, index) => {
         return (
