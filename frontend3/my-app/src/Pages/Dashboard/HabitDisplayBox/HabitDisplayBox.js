@@ -83,6 +83,10 @@ export default function HabitDisplayBox(props) {
     setStartCustomAnimation(true);
     setTimeout(() => setStartCustomAnimation(false), 500);
   }
+  
+  function turnOffCustomMode(){
+    setCustomInputMode(false);
+  }
 
   const [customInputValue, setCustomInputValue] = useState("");
   // const [submitted, setIsSubmitted] = useState("submitted")
@@ -107,6 +111,7 @@ export default function HabitDisplayBox(props) {
   }
 
   async function customInputSubmitHandler(e) {
+    turnOffCustomMode();
     e.preventDefault();
     console.log(props.habit);
     const postBody = {
