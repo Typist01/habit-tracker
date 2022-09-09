@@ -5,21 +5,29 @@
 }
 .activity-display {
   margin: 3% 7%;
+  position: relative;
+  min-width: 500px;
+  max-width: 800px;
+  margin: auto;
 }
 
 .activity-display label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
-.activity-display input {
+.activity-display input,
+.activity-display textarea {
+  border: none;
   border-radius: 4px;
+  margin-top: 15px;
 }
 .activity-display input:focus {
   outline: none;
 }
 
-.activity-display inputarea {
-  border-radius: 4px;
+.activity-display textarea:focus {
+  outline: none;
 }
 
 .activity-display .amount input {
@@ -40,11 +48,17 @@
   width: 150px;
 }
 
+.activity-display .units input {
+  padding: 3px 5px;
+}
+
 .comment textarea {
   display: block;
   height: 200px;
   width: 300px;
   border-radius: 4px;
+  padding: 7px;
+  /* cursor: default; */
 }
 
 .activity-details-heading {
@@ -55,11 +69,43 @@
 }
 .activity-details-heading .units {
   display: inline-block;
+  margin-left: 5px;
 }
+
 .activity-details-heading .units input {
+  width: 100px;
+  height: 30px;
+  background-color: transparent;
+  color: white;
   display: block;
 }
 
 .units label {
   margin-left: 10px;
+}
+
+.activity-display .not-editable {
+  background-color: rgb(255, 197, 197);
+  border: none;
+  color: black;
+}
+
+.time .first {
+  margin-right: 5px;
+}
+.time .second {
+  margin-left: 5px;
+}
+
+.edit-button {
+  width: 100px;
+  height: 45px;
+  position: absolute;
+  right: 5px;
+  top: 35px;
+  border-radius: 4px;
+}
+
+.add-comment-button {
+  
 }
