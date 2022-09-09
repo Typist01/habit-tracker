@@ -41,6 +41,7 @@ export default function DataDisplay() {
 
   function deleteHabitHandler(){
     deleteHabitByID(habitID);
+    window.location.replace("http://localhost:3000/");
   }
 
   return (
