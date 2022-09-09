@@ -8,6 +8,8 @@ export default function EntryDisplayBox(props) {
   const [deleteCheck, setDeleteCheck] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   let navigate = useNavigate();
+  const date = new Date(props.entry.dateRecorded)
+  const dateToDisplay= date.getDate() + "-" + (date.getMonth()+1) + "-"+  date.getFullYear()+ " at " + date.getHours()+ ":" + date.getMinutes(); 
 
   function deleteModeToggle() {
     setDeleteCheck((v) => !v);
@@ -17,6 +19,7 @@ export default function EntryDisplayBox(props) {
     setIsDeleted(true);
     props.onDelete(props.entry.id);
   }
+  useEffect(() => {console.log(date)}, []);
 
   return (
     <React.Fragment>
@@ -27,7 +30,8 @@ export default function EntryDisplayBox(props) {
       >
         <div className="date entry-display-margin-auto">
           <div className="entry-textbox" style={{ textAlign: "left" }}>
-            <h3>Date: {props.entry.dateRecorded}</h3>
+            {/* <h3>Date: {props.entry.dateRecorded}</h3> */}
+            <h3>{dateToDisplay}</h3>
           </div>
         </div>
 
