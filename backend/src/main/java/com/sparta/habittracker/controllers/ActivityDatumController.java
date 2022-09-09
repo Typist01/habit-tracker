@@ -205,17 +205,18 @@ public class ActivityDatumController {
             if (dataRepo.existsById(id)){
                 ActivityDatum oldData = dataRepo.findById(id)
                         .orElseThrow( ()-> new HttpClientErrorException(HttpStatus.NOT_FOUND));
-                if(json.get("date") != null){
-                    oldData.setDateRecorded(Instant.parse(String.valueOf(json.get("date"))));
+                if(json.get("dateRecorded") != null){
+                    oldData.setDateRecorded(Instant.parse(String.valueOf(json.get("dateRecorded"))));
                 }
-                if(json.get("amount_done") != null){
-                    oldData.setAmountDone(Integer.parseInt(String.valueOf(json.get("amount_done"))));
+                if(json.get("amountDone") != null){
+                    oldData.setAmountDone(Integer.parseInt(String.valueOf(json.get("amountDone"))));
                 }
-                if(json.get("feeling_score") != null){
-                    oldData.setFeelingScore((Integer)(json.get("feeling_score")));
+                System.out.println(("feeling score is " + json.get("feelingScore")));
+                if(json.get("feelingScore") != null){
+                    oldData.setFeelingScore(Integer.parseInt(String.valueOf(json.get("feelingScore"))));
                 }
-                if(json.get("feeling_comment") != null){
-                    oldData.setFeelingComment(String.valueOf(json.get("feeling_comment")));
+                if(json.get("feelingComment") != null){
+                    oldData.setFeelingComment(String.valueOf(json.get("feelingComment")));
                 }
                 return oldData;
             }
