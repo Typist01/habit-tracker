@@ -30,3 +30,15 @@ This project. With this background in mind the personal goals are as follows.
 - Learn HTML, JavaScript, Node.js and react by developing a front-end user interface.
 - Establish a way to connect the aforementioned frontend to the Java based backend.
 - ~~Keep ourselves entertained working on a fun project~~
+### Application goals
+- Allow a user to create an account, and to use that account to create and store habits unique to them
+- Allow as much freedom as possible to the user when creating a habit such as
+  - entering the activity they wish to do
+  - how they wish to measure it
+  - naming the habit
+- Create an interface as simple as possible so the user only has to push a couple of buttons to deal with any habit
+- View historical data
+- Change information about a habit and data entries
+- Set targets to reach and monitor progress to them
+## Planning
+As a group we adhered to the scrum methodology throughout the project, having a daily standup in the morning to discuss what actions need to be taken for the day.
