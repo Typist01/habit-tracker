@@ -9,8 +9,9 @@
 .login-content-box {
   background-color: rgb(0, 37, 80);
   position: relative;
-  min-width: 300px;
-  left: 25%;
+  min-width: 400px;
+  max-width: 600px;
+  margin: auto;
   width: 50%;
   height: 500px;
   border-radius: 2%;
@@ -56,6 +57,9 @@
   background-color: rgb(0, 66, 141);
   color: white;
 }
+.login-content-box button:hover {
+  background-color: rgb(0, 74, 158);
+}
 
 .login-label {
   color: whitesmoke;
@@ -70,6 +74,21 @@
   background-color: magenta;
 }
 
-.magestic-mode-highlight {
-  background-color: pink;
+.logged-in {
+  margin: 3% 7%;
+}
+
+.logged-in h1 {
+  text-align: center;
+}
+.logged-in p {
+  margin-top: 7%;
+  color: skyblue;
+}
+.logged-in a {
+  text-decoration: none;
+}
+.logged-in button {
+  width: 80px;
+  height: 40px;
 }

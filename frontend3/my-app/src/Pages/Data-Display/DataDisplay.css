@@ -1,0 +1,21 @@
+.data-display-table{
+    height: 500px;
+    background-color: white;
+    width: 500px;
+    margin: auto;
+    color: black;
+}
+.delete-habit-button{
+    padding: auto;
+    border: 5px;
+    color: white;
+    position: absolute;
+    left: 70%;
+    top: 55px;
+    display: inline-block;
+    background-color: hsla(0, 100%, 17%, 0.63);
+    width: 20%;
+    height: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+}

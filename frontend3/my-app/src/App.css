@@ -1,5 +1,11 @@
+/** @format */
+
 .App {
   text-align: center;
+}
+body {
+  color: white;
+  background-color: #1e1e1e;
 }
 
 .App-logo {
@@ -35,4 +41,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.magestic-mode {
+  background-color: magenta;
+}
+
+.magestic-mode-highlight {
+  background-color: pink;
+}
+
+.magestic-mode-background {
+  background-color: rgb(177, 51, 145);
 }

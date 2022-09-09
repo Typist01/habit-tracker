@@ -5,12 +5,27 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_habits")
 public class UserHabit {
+
+    public UserHabit(Integer id, String name, User user, Activity activityName, ActivityUnit unitType, Integer defaultIncrement) {
+        this.id = id;
+        this.name = name;
+        this.user = user;
+        this.activityName = activityName;
+        this.unitType = unitType;
+        this.defaultIncrement=defaultIncrement;
+    }
+
+
     @Id
     @Column(name = "user_habit_id", nullable = false)
     private Integer id;
 
     @Column(name = "name")
     private String name;
+
+
+    @Column(name = "default_increment")
+    private Integer defaultIncrement;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -23,6 +38,17 @@ public class UserHabit {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "unit_type", nullable = false)
     private ActivityUnit unitType;
+
+    public UserHabit() {
+
+    }
+    public Integer getDefaultIncrement() {
+        return defaultIncrement;
+    }
+
+    public void setDefaultIncrement(Integer defaultIncrement) {
+        this.defaultIncrement = defaultIncrement;
+    }
 
     public Integer getId() {
         return id;

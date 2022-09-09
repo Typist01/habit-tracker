@@ -1,5 +1,9 @@
 package com.sparta.habittracker.entities;
 
+import com.sparta.habittracker.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,6 +24,16 @@ public class User {
 
     @Column(name = "password_token", nullable = false)
     private String passwordToken;
+
+    public User(Integer id, String email, String username, String passwordToken) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.passwordToken = passwordToken;
+    }
+    public User(){
+
+    }
 
     public Integer getId() {
         return id;

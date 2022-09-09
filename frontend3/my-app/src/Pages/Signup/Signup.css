@@ -8,6 +8,7 @@
 }
 .signup-container input {
   height: 30px;
+  border-radius: 4px;
 }
 
 .signup-container {
@@ -39,4 +40,13 @@
 #signup-submit:hover {
   background-color: rgb(240, 240, 240);
   cursor: pointer;
+}
+
+.sign-up label {
+  font-size: 18px;
+  font-weight: 600;
+}
+.sign-up input {
+  margin-top: 5px;
+  margin-bottom: 10px;
 }

@@ -20,6 +20,28 @@ public class ActivityDatum {
     @Column(name = "amount_done", nullable = false)
     private Integer amountDone;
 
+    @Column(name = "feeling_score", nullable = true)
+    private Integer feelingScore;
+
+    @Column (name="feeling_comment", nullable=true)
+    private String feelingComment;
+
+    public Integer getFeelingScore() {
+        return feelingScore;
+    }
+
+    public void setFeelingScore(Integer feelingScore) {
+        this.feelingScore = feelingScore;
+    }
+
+    public String getFeelingComment() {
+        return feelingComment;
+    }
+
+    public void setFeelingComment(String feelingComment) {
+        this.feelingComment = feelingComment;
+    }
+
     public Integer getId() {
         return id;
     }
